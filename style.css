@@ -1,0 +1,28 @@
+body {
+	background-color: black
+	
+}
+
+h1 {
+	color: white;
+	text-align: left;
+	font-size: 50px;
+}
+
+h2{
+	color: #80ced6;
+	text-align: left;
+}
+p {
+	color:white;
+	font-size: 30px;
+}
+
+li{
+	color: white;
+	font-size: 25px;
+}
+
+a{
+	color: yellow;
+}
