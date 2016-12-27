@@ -1,0 +1,40 @@
+.exercise-timer {
+  font-size: 420%;
+  text-align: center;
+}
+
+.exercise-steps ol {
+  list-style-type: none;
+}
+
+.exercise-steps li {
+  font-size: 123.1%;
+  line-height: 1.6em;
+  color: #aaa;
+}
+
+.exercise-steps li.done {
+  text-decoration: line-through;
+}
+.exercise-steps li.selected {
+  color: #000;
+  font-weight: 600;
+}
+
+.exercise-current {
+  text-align: center; 
+}
+.exercise-last {
+  padding-left: 20px;
+}
+.exercise-next {
+  padding-right: 20px;
+  text-align: right;
+}
+
+.exercise-last a,
+.exercise-next a {
+  color: #333;
+  font-size: 92.3%;
+}
+ 
