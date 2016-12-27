@@ -1,0 +1,22 @@
+.feature-block {
+  background: #ab0000;
+  text-align: center;
+  overflow: hidden;
+}
+
+.feature-block .font-xl {
+  color: #fff;
+  display: block;
+  margin: 2em 0 1.6em;
+}
+
+.feature-block .btn {
+  border: 2px solid #fff;
+  color: #fff;
+  margin: 0 0 4em 0;
+  display: inline-block;
+}
+
+.feature-block .btn:hover {
+  background: #8c0000;
+}

@@ -4,13 +4,15 @@
 <head>
   <title>Warm Up Rx</title>
   <link href="https://fonts.googleapis.com/css?family=Raleway:100,400,500,600" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../vendor/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../common/css/fonts.css">
+  <link rel="stylesheet" href="../common/css/global.css">
   <link rel="stylesheet" href="exercises.css">
 
 </head>
 <body>
   <header>
-    <h1><a href="index.html">Warm Up Rx</a></h1>
+    <h1><a href="../index.html">Warm Up Rx</a></h1>
     <nav class="main-navigation">
       <a class="logo-crossfit718 btn" 
          title="Crossfit718" 
@@ -18,19 +20,23 @@
     </nav>
   </header>
 
-  <div class="flex-container">
+  <div class="flex-container exercise-header">
     <div class="flex-column-1">
-      <h2 class="section-header exercise-last" id="exercise-last"></h2>
+      <h2 class="exercise-last font-nl" id="exercise-last"></h2>
     </div>
     <div class="flex-column-2">
-      <h2 class="section-header exercise-current">
+      <h2 class="exercise-current font-lg">
         <span id="exercise-name"></span>
         <span id="exercise-count"></span>
       </h2>
     </div>
     <div class="flex-column-1">
-      <h2 class="section-header exercise-next" id="exercise-next"></h2>
-    </div>
+      <h2 class="exercise-next font-nl" id="exercise-next"></h2>
+    </div>    
+  </div>
+  
+  <div class="flex-container">
+    <div class="exercise-progress progress-bar" id="exercise-progress"></div>
   </div>
 
   <div class="flex-container">
@@ -48,7 +54,10 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="script.js"></script>
+<script src="../common/js/sections.js"></script>
+<script src="../common/js/utils.js"></script>
+<script src="../common/js/routes.js"></script>
+<script src="exercises.js"></script>
 
 
 </body>
