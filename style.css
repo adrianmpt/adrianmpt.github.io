@@ -98,10 +98,15 @@ nav .btn {
 .section-list {
   padding-left: 30px;
   text-transform: capitalize;
+  font-size: 100%;
 }
 
 .section-content {
   padding-left: 10px;
+}
+
+.section-content p {
+  font-size: 100%;
 }
 
 .flex-container {
@@ -118,8 +123,27 @@ nav .btn {
     width: 33.3%;
     margin: 10px;
     border: 1px solid #aaa;
+    background: #efefef;
     box-shadow: 2px 2px 5px #aaa;
 }
+
+
+.flex-column-1 {
+    width:25%;
+}
+
+.flex-column-2 {
+    width:50%;
+}
+
+.flex-column-3 {
+    width:75%;
+}
+
+.flex-column-4 {
+    width:100%;
+}
+
 
 .flex-row {
   width: 100%;

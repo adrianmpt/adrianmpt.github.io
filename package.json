@@ -1,0 +1,18 @@
+{
+  "name": "adrianmpt.github.io",
+  "version": "1.0.0",
+  "description": "Wake Up Rx",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adrianmpt/adrianmpt.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adrianmpt/adrianmpt.github.io/issues"
+  },
+  "homepage": "https://github.com/adrianmpt/adrianmpt.github.io#readme",
+  "dependencies": {
+    "fontawesome": "4.7.0"
+  }
+}
