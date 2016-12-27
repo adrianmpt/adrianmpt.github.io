@@ -24,8 +24,17 @@
 .exercise-current {
   text-align: center; 
 }
-.exercise-last {}
+.exercise-last {
+  padding-left: 20px;
+}
 .exercise-next {
+  padding-right: 20px;
   text-align: right;
+}
+
+.exercise-last a,
+.exercise-next a {
+  color: #333;
+  font-size: 92.3%;
 }
  
