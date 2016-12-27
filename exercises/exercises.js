@@ -158,7 +158,6 @@
   function init() {
     resetApp();
     current = getSection();
-    startProgress();
     setNav();
     start(current);
     $(window).bind('hashchange', onHashChange);
