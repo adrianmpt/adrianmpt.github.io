@@ -14,62 +14,62 @@
             {
               order: 1,
               exercise: "Head tilt ear to shoulder",
-              duration: 3000
+              duration: 10000
             },
             {
               order: 2,
               exercise: "look left and right",
-              duration: 3000
+              duration: 10000
             },
             {
               order: 3,
               exercise: "chin to chest",
-              duration: 3000
+              duration: 10000
             },
             {
               order: 4,
               exercise: "look up",
-              duration: 3000
+              duration: 10000
             },
             {
               order: 5,
               exercise: "standing sidebend full",
-              duration: 3000
+              duration: 10000
             },
             {
               order: 6,
               exercise: "elbows to tummy",
-              duration: 3000
+              duration: 10000
             },
             {
               order: 7,
               exercise: "elbows to sky",
-              duration: 3000
+              duration: 10000
             },
             {
               order: 8,
               exercise: "standing twist",
-              duration: 3000
+              duration: 10000
             },
             {
               order: 9,
               exercise: "Supine knee to chest",
-              duration: 3000
+              duration: 10000
             },
             {
               order: 10,
               exercise: "supine rotation",
-              duration: 3000
+              duration: 10000
             },
             {
               order: 11,
               exercise: "prone extension",
-              duration: 3000
+              duration: 10000
             },
             {
               order: 12,
               exercise: "prone scorpion",
-              duration: 3000
+              duration: 10000
             }
           ]
         },
@@ -360,7 +360,7 @@
     }
 
     $('#exercise-steps').html('');
-    
+
   }
 
   function init() {
