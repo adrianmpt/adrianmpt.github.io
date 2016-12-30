@@ -6,6 +6,10 @@
     "type": "git",
     "url": "git+https://github.com/adrianmpt/adrianmpt.github.io.git"
   },
+  "scripts": {
+    "test": "mocha --reporter spec -w **/*.test.js",
+    "start": "node ./server/server.js"
+  },
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -13,6 +17,13 @@
   },
   "homepage": "https://github.com/adrianmpt/adrianmpt.github.io#readme",
   "dependencies": {
-    "fontawesome": "4.7.0"
+    "body-parser": "^1.15.2",
+    "express": "4.14.0",
+    "fontawesome": "4.7.0",
+    "mongoose": "4.7.5"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
   }
 }
