@@ -3,7 +3,10 @@ var API = function() {
   var _api = {
 
     config: null,
-    Flows: require('./flows/Flows.js'),
+
+    Seed: require('./Seed/Seed.js'),
+    Flows: require('./Flows/Flows.js'),
+    Tenants: require('./Tenants/Tenants.js'),
 
     use: function(config) {
       this.config = config;
@@ -21,14 +24,21 @@ var API = function() {
         _api.config.options = {};
       }
 
-      console.log(req.body)
-
       _api.config.options = _api.interpolate(_api.config.options, args);
       _api.config.options.body = req.body;
     
-      method(_api.config.options).addBack(function(err, docs) {
-        res.send(docs)
+      method(_api.config.options).then(function(err, docs) {
+        
+        //if (err) { return new Error(err) }
+        // Document was returned
+        if (docs) {
+          res.send(docs)
+        }else{
+          res.send('{ "success": true }')
+        }
+
         next()
+
       });
 
     },

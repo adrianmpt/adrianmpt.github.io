@@ -1,11 +1,11 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    ObjectId = Schema.ObjectId
+    ObjectId = Schema.ObjectId;
 
-var FlowItemSchema = new Schema({
+var FlowItem = new Schema({
   order: Number,
   duration: Number,
   exercise: String
-})
+});
 
-module.exports = FlowItemSchema;
+module.exports = FlowItem;

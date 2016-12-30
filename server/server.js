@@ -5,23 +5,49 @@ var mongoose = require('mongoose'),
     Flows = require('./api/Flows/Flows.js'),
     bodyParser = require('body-parser');
 
+mongoose.Promise = global.Promise
 mongoose.connect('mongodb://localhost/WarmUpRx')
     
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+/** Seed **/
+app.get('/seed', new API().use({
+    name: 'Seed',
+    method: 'init'
+  })
+)
+
+/** Flows **/
 app.get('/flows', new API().use({
     name: 'Flows',
     method: 'list',
     options: {
       page: ':page',
-      size: 10
+      size: ':size'
     }
   })
 )
 
 app.post('/flows', new API().use({
     name: 'Flows',
+    method: 'create'
+  })
+) 
+
+/** Tenants **/
+app.get('/tenants', new API().use({
+    name: 'Tenants',
+    method: 'list',
+    options: {
+      page: ':page',
+      size: ':size'
+    }
+  })
+)
+
+app.post('/tenants', new API().use({
+    name: 'Tenants',
     method: 'create'
   })
 ) 
