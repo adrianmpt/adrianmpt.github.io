@@ -27,9 +27,8 @@ var API = function() {
       _api.config.options = _api.interpolate(_api.config.options, args);
       _api.config.options.body = req.body;
     
-      method(_api.config.options).then(function(err, docs) {
+      method(_api.config.options).then(function(docs) {
         
-        //if (err) { return new Error(err) }
         // Document was returned
         if (docs) {
           res.send(docs)

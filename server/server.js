@@ -52,6 +52,19 @@ app.post('/tenants', new API().use({
   })
 ) 
 
+/** Tenant Flows **/
+app.get('/tenants/:id/flows', new API().use({
+    name: 'Tenants',
+    method: 'flows',
+    options: {
+      id: ':id',
+      page: ':page',
+      size: ':size'
+    }
+  })
+)
+
+
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
 })

@@ -1,6 +1,9 @@
 var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    Flow = require('../Flows/Flow.schema.js'),
+    FlowItem = require('../Flows/FlowItem.schema.js'),
     Tenant = require('./Tenant.schema.js'),
-    Flow = require('../Flows/Flow.schema.js');
+    TenantFlow = require('./TenantFlow.schema.js');
 
 var Tenants = {
   
@@ -21,20 +24,20 @@ var Tenants = {
     // Get list of all crossfit flows
     var tenantId,  
         mTenant = mongoose.model('Tenant', Tenant),
-        mTenantFlow = mongoose.model('TenantFlow', Flow),
-        mCrossfit = mongoose.model('Crossfit', Flow);
+        mTenantFlow = mongoose.model('TenantFlow', TenantFlow),
+        mCrossfit = mongoose.model('Crossfit', Flow, 'crossfit');
 
     console.log(options.body);
 
     return new mTenant(options.body).save()
-      .then( (err, docs) => {
-        console.log(arguments, docs);
+      .then( (docs) => {
+        console.log(docs);
 
         //if (err) { return new Error(err) }
-        tenantId = docs.tenantId;
+        tenantId = docs.id;
         return mCrossfit.find().exec();
       })
-      .then( (err, docs) => {
+      .then( (docs) => {
         console.log(docs);
         //if (err) { return new Error(err) }
         return new mTenantFlow({ tenantId: tenantId, flows: docs }).save();
@@ -47,7 +50,32 @@ var Tenants = {
 
     return mTenant.find(options).exec();
 
+  },
+
+  flows: function(options) {
+    console.log('Tenants.flows', options);
+
+    var id = mongoose.Types.ObjectId(options.id);
+    
+    var mTenantFlow = mongoose.model('TenantFlow', TenantFlow),
+        mCrossfit = mongoose.model('Crossfit', Flow, 'crossfit');
+
+    return new Promise((resolve, reject) => {
+
+      mTenantFlow.findOne({ "tenantId": id }).exec().then( (docs) => {
+
+        var ids = docs.flows.map( (doc) => { 
+          return mongoose.Types.ObjectId(doc);
+        });
+
+        resolve(mCrossfit.find({ "_id": { $in: ids } }).exec());
+
+      });
+
+    });
+
   }
+
 
 }
 

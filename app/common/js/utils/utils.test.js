@@ -24,4 +24,18 @@ describe('UTILS', function() {
 
   });
 
+  describe('uriRoute', function() {
+    it('should interpolate variables into paths', function() {
+      assert.equal(
+        '/a/2/b?cee&dee', 
+        UTILS.uriRoute('/a/:to/:bee?c&d', { 
+          to: 2, 
+          bee: 'b', 
+          c: 'cee', 
+          d: 'dee' 
+        })
+      );
+    })
+  });
+
 });

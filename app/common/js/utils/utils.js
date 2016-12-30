@@ -27,6 +27,48 @@ var UTILS = {
 
     return r;
 
+  },
+
+  uriRoute: function(url, args) {
+
+    var r = '',
+        u = url.split('?'),
+        p = (u[0]) ? u[0].split('/') : [],
+        q = (u[1]) ? u[1].split('&') : [];
+
+    for (arg in args) {
+      if (args.hasOwnProperty(arg)) {
+        for (i=0,ii=p.length;i<ii;i++) {
+          console.log(p, i, typeof(p[i]));
+          if (typeof(p[i]) === 'string' &&
+              p[i].match(':'+arg)) {
+            p[i] = args[arg];
+          }
+        }
+      }
+    }
+
+    for (i=0,ii=q.length;i<ii;i++) {
+      for (arg in args) {
+        if (args.hasOwnProperty(arg)) {
+          if (typeof(q[i]) === 'string' &&
+              q[i].match(arg)) {
+            q[i] = args[arg];
+          }
+        }
+      }
+    }
+
+    if (p.length) {
+      r += p.join('/');
+    }
+
+    if (q.length) {
+      r += '?' + q.join('&');      
+    }
+
+    return r;
+
   }
 
 };

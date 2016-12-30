@@ -189,3 +189,8 @@ var SECTIONS = [
     ]
   }
 ];
+
+
+if (typeof module !== 'undefined' && module.exports != null) {
+    exports.SECTIONS = SECTIONS;
+}

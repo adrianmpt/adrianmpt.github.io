@@ -7,7 +7,7 @@
     "url": "git+https://github.com/adrianmpt/adrianmpt.github.io.git"
   },
   "scripts": {
-    "test": "mocha --reporter spec -w **/*.test.js",
+    "test": "mocha --reporter spec -w ./app/**/*.test.js",
     "start": "node ./server/server.js"
   },
   "author": "",
