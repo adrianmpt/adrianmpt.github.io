@@ -1,12 +1,15 @@
-var mongoose = require('mongoose'),
+'use strict';
+
+let mongoose = require('mongoose'),
     express = require('express'),
     app = express(),
     API = require('./api/api.js'),
     Flows = require('./api/Flows/Flows.js'),
     bodyParser = require('body-parser');
 
-mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost/WarmUpRx')
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://warmup:AHApKMFvSP6SM7x@ds145868.mlab.com:45868/warmuprx');
+// mongoose.connect('mongodb://localhost/WarmUpRx')
     
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
@@ -16,7 +19,7 @@ app.get('/seed', new API().use({
     name: 'Seed',
     method: 'init'
   })
-)
+);
 
 /** Flows **/
 app.get('/flows', new API().use({
@@ -27,13 +30,13 @@ app.get('/flows', new API().use({
       size: ':size'
     }
   })
-)
+);
 
 app.post('/flows', new API().use({
     name: 'Flows',
     method: 'create'
   })
-) 
+);
 
 /** Tenants **/
 app.get('/tenants', new API().use({
@@ -44,13 +47,13 @@ app.get('/tenants', new API().use({
       size: ':size'
     }
   })
-)
+);
 
 app.post('/tenants', new API().use({
     name: 'Tenants',
     method: 'create'
   })
-) 
+);
 
 /** Tenant Flows **/
 app.get('/tenants/:id/flows', new API().use({
@@ -62,9 +65,9 @@ app.get('/tenants/:id/flows', new API().use({
       size: ':size'
     }
   })
-)
+);
 
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
-})
+});

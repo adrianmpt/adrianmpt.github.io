@@ -1,8 +1,9 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    ObjectId = Schema.ObjectId;
+'use strict';
 
-var FlowItem = new Schema({
+let mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
+
+let FlowItem = new Schema({
   order: Number,
   duration: Number,
   exercise: String

@@ -29,17 +29,18 @@ var UTILS = {
 
   },
 
-  uriRoute: function(url, args) {
+  uriRoute: function(url, args, options) {
 
     var r = '',
-        u = url.split('?'),
+        protocolTest = /^(\w+:)?\/\/.*?(\/|$)/,
+        a = (url.indexOf('#') > -1) ? url.split('#') : [url],
+        u = a[0].split('?'),
         p = (u[0]) ? u[0].split('/') : [],
         q = (u[1]) ? u[1].split('&') : [];
 
     for (arg in args) {
       if (args.hasOwnProperty(arg)) {
         for (i=0,ii=p.length;i<ii;i++) {
-          console.log(p, i, typeof(p[i]));
           if (typeof(p[i]) === 'string' &&
               p[i].match(':'+arg)) {
             p[i] = args[arg];
@@ -53,7 +54,7 @@ var UTILS = {
         if (args.hasOwnProperty(arg)) {
           if (typeof(q[i]) === 'string' &&
               q[i].match(arg)) {
-            q[i] = args[arg];
+            q[i] = arg + '=' + args[arg];
           }
         }
       }
@@ -65,6 +66,27 @@ var UTILS = {
 
     if (q.length) {
       r += '?' + q.join('&');      
+    }
+
+    if (a.length && a[1])  {
+      r +=  '#' + a[1];
+    }
+
+    if (options && 
+        options.base) {
+      if (r.match(protocolTest)) {
+        if (options.base.match(protocolTest)) {
+          if (options.overrideProtocol) {
+            r = r.replace(/^((\w+:)?(\/\/))(.*?)(\/|$)/, options.base + "$5");
+          }else{
+            r = r.replace(/^((\w+:)?(\/\/))(.*?)(\/|$)/, "$2" + "$3" + options.base.replace(/^(\w+:)?\/\/(.*?(\/|$))/, "$2") + "$5");
+          }
+        }else{
+          r = r.replace(/^((\w+:)?(\/\/))(.*?)(\/|$)/, "$2" + "$3" + options.base + "$5");
+        }
+      }else{
+        r = options.base + r;
+      }
     }
 
     return r;

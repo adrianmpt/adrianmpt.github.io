@@ -7,19 +7,41 @@
       currentDuration = 0,
       currentExercise = 0,
       transpiredDuration = 0,
-      sections = SECTIONS.slice(0);
+      sections = [];
       
   function getSection() {
     return findSection(window.location.hash.replace('#', ''));
   }
 
   function findSection(section) {
-    var r;
+    var r,
+      i, ii;
 
     for (i=0,ii=sections.length;i<ii;i++) {
       if (sections[i].name.toLowerCase() === section.toLowerCase()) {
         r = sections[i];
         break;
+      }
+    }
+
+    return r;
+  }
+
+  function findSectionOrder(order, direction) {
+    var r,
+        i, ii;
+
+    for (i=0,ii=sections.length;i<ii;i++) {
+      if (direction === 'next') {
+        if (sections[i].order === order + 1) {
+          r = sections[i];
+          break;
+        }
+      }else if (direction === 'last') {
+        if (sections[i].order === order - 1) {
+          r = sections[i];
+          break;
+        }
       }
     }
 
@@ -35,7 +57,8 @@
   }
 
   function setItems(items) {
-    var ol = $('<ol id="exercise-list"></ol>');
+    var i, ii,
+        ol = $('<ol id="exercise-list"></ol>');
 
     for (i=0,ii=items.length;i<ii;i++) {
       ol.append('<li>(' + UTILS.secondsToTime(UTILS.msToSec(items[i].duration)) + ') ' + items[i].exercise + '</li>');
@@ -45,12 +68,12 @@
   }
 
   function setNav() {
-    setNext();
-    setLast();
+    //setNext();
+    //setLast();
   }
 
   function setNext() {
-    var section = findSection(current.next),
+    var section = findSectionOrder(current.order, 'next'),
         next = $('#exercise-next');
 
     next.html('');
@@ -58,7 +81,7 @@
   }
 
   function setLast() {
-    var section = findSection(current.last),
+    var section = findSectionOrder(current.order, 'last'),
         last = $('#exercise-last');
 
     last.html('');
@@ -76,7 +99,8 @@
 
   function run() {
 
-    var lis = $('#exercise-list').find('li');
+    var i, ii,
+        lis = $('#exercise-list').find('li');
 
     lis.removeClass('selected');
     for (i=0,ii=currentExercise;i<ii;i++) {
@@ -155,12 +179,17 @@
 
   }
 
-  function init() {
-    resetApp();
+  function onFlowsComplete(response) {
+    sections = response;
     current = getSection();
     setNav();
     start(current);
     $(window).bind('hashchange', onHashChange);
+  }
+
+  function init() {
+    resetApp();
+    API.tenants.flows().then(onFlowsComplete);
   }
 
   init();

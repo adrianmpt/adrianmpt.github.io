@@ -1,8 +1,9 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    ObjectId = Schema.ObjectId
+'use strict';
 
-var Tenant = new Schema({
+let mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
+
+let Tenant = new Schema({
    name: String,
    address: String,
    city: String,
@@ -12,6 +13,6 @@ var Tenant = new Schema({
    active: Boolean,
    createdDate: Date,
    updatedDate: Date
-})
+});
 
 module.exports = Tenant;

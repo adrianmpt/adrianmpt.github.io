@@ -1,11 +1,13 @@
-var mongoose = require('mongoose'),
+'use strict';
+
+let mongoose = require('mongoose'),
     Flow = require('./Flow.schema.js');
 
-var Flows = {
+const Flows = {
   
   list: function(options) {
 
-    var mFlow = mongoose.model('Flow', Flow);
+    let mFlow = mongoose.model('Flow', Flow);
 
     console.log('Flows.list');
 
@@ -15,7 +17,7 @@ var Flows = {
 
   create: function(options) {
     
-    var mFlow = mongoose.model('Flow', Flow);
+    let mFlow = mongoose.model('Flow', Flow);
 
     console.log('Flows.create');
 
@@ -23,6 +25,6 @@ var Flows = {
 
   }
 
-}
+};
 
 module.exports = Flows;

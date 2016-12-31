@@ -1,9 +1,11 @@
-var mongoose = require('mongoose'),
+'use strict';
+
+let mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId,
     Flow = require('../Flows/Flow.schema.js');
 
-var TenantFlow = new Schema({
+let TenantFlow = new Schema({
   tenantId: ObjectId,
   flows: [ObjectId]
 });

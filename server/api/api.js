@@ -1,6 +1,8 @@
-var API = function() {
+'use strict';
 
-  var _api = {
+function API() {
+
+  let _api = {
 
     config: null,
 
@@ -17,7 +19,7 @@ var API = function() {
     handler: function(req, res, next) {
       // Need to access API statically since 
       // `this` object is in a different context
-      var method = _api[_api.config.name][_api.config.method],
+      let method = _api[_api.config.name][_api.config.method],
           args = Object.assign({}, req.params, req.query);
 
       if (!_api.config.options) {
@@ -43,7 +45,9 @@ var API = function() {
     },
 
     interpolate: function(object, values) {
-      var r;
+      let r,
+          ok,
+          vk;
 
       if (object && values) {
         // object key (ok)
@@ -65,11 +69,12 @@ var API = function() {
         r = {};
       }
 
-      return object;
+      return r;
     }
-  }
+  };
 
   return _api;
-}
+
+};
 
 module.exports = API;

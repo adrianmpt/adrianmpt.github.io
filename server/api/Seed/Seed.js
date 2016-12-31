@@ -1,12 +1,14 @@
-var assert = require('assert'),
+'use strict';
+
+let assert = require('assert'),
     DBMigrate = require('db-migrate');
 
-var Seed = {
+const Seed = {
 
   init: function() {
 
     //getting an instance of dbmigrate
-    var dbmigrate = DBMigrate.getInstance(true);
+    let dbmigrate = DBMigrate.getInstance(true, { env: 'staging' });
     //execute any of the API methods
     return dbmigrate.reset()
       .then( () => dbmigrate.up() )

@@ -3,5 +3,13 @@
     "driver": "mongodb",
     "database": "WarmUpRx",
     "host": "localhost"
+  },
+  "staging":  {
+    "driver": "mongodb",
+    "database": "warmuprx",
+    "user": "warmup",
+    "password": "AHApKMFvSP6SM7x",
+    "port": "45868",
+    "host": "ds145868.mlab.com"
   }
 }

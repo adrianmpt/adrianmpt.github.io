@@ -27,15 +27,116 @@ describe('UTILS', function() {
   describe('uriRoute', function() {
     it('should interpolate variables into paths', function() {
       assert.equal(
-        '/a/2/b?cee&dee', 
-        UTILS.uriRoute('/a/:to/:bee?c&d', { 
+        'http://www.acme.com/a/2/b?c=cee&d=http://go#anchor', 
+        UTILS.uriRoute('http://:super/a/:to/:bee?c&d#anchor', { 
           to: 2, 
-          bee: 'b', 
+          super: 'www.acme.com',
+          bee: 'b',
           c: 'cee', 
-          d: 'dee' 
+          d: 'http://go' 
         })
       );
-    })
+    });
+
+    it('should interpolate variables into paths even with no protocol', function() {
+      assert.equal(
+        '//www.acme.com/a/2/b?c=cee&d=http://go#anchor', 
+        UTILS.uriRoute('//:super/a/:to/:bee?c&d#anchor', { 
+          to: 2, 
+          super: 'www.acme.com',
+          bee: 'b',
+          c: 'cee', 
+          d: 'http://go' 
+        })
+      );
+    });
+
+    it('should use baseRoute if provided', function() {
+      assert.equal(
+        'http://localhost:3000/a/2/b?c=cee&d=http://go#anchor', 
+        UTILS.uriRoute('http://:super/a/:to/:bee?c&d#anchor', { 
+          to: 2, 
+          super: 'www.acme.com',
+          bee: 'b',
+          c: 'cee', 
+          d: 'http://go' 
+        }, { base: 'localhost:3000' })
+      );
+    }); 
+
+    it('should use baseRoute if protocol is agnostic provided', function() {
+      assert.equal(
+        '//localhost:3000/a/2/b?c=cee&d=http://go#anchor', 
+        UTILS.uriRoute('//:super/a/:to/:bee?c&d#anchor', { 
+          to: 2, 
+          super: 'www.acme.com',
+          bee: 'b',
+          c: 'cee', 
+          d: 'http://go' 
+        }, { base: 'localhost:3000' })
+      );
+    }); 
+
+    it('should use `url` protocol even base provides', function() {
+      assert.equal(
+        '//localhost:3000/a/2/b?c=cee&d=http://go#anchor', 
+        UTILS.uriRoute('//:super/a/:to/:bee?c&d#anchor', { 
+          to: 2, 
+          super: 'www.acme.com',
+          bee: 'b',
+          c: 'cee', 
+          d: 'http://go' 
+        }, { base: 'http://localhost:3000' })
+      );
+    }); 
+
+    it('should use `url` protocol even base provides', function() {
+      assert.equal(
+        'http://localhost:3000/a/2/b?c=cee&d=http://go#anchor', 
+        UTILS.uriRoute('http://:super/a/:to/:bee?c&d#anchor', { 
+          to: 2, 
+          super: 'www.acme.com',
+          bee: 'b',
+          c: 'cee', 
+          d: 'http://go' 
+        }, { base: 'https://localhost:3000' })
+      );
+    }); 
+
+
+    it('should use `base` protocol when overrideProtocol is true', function() {
+      assert.equal(
+        'https://localhost:3000/a/2/b?c=cee&d=http://go#anchor', 
+        UTILS.uriRoute('http://:super/a/:to/:bee?c&d#anchor', { 
+          to: 2, 
+          super: 'www.acme.com',
+          bee: 'b',
+          c: 'cee', 
+          d: 'http://go' 
+        }, { 
+          base: 'https://localhost:3000',
+          overrideProtocol: true
+        })
+      );
+    }); 
+
+
+    it('should use `base` agnostic protocol when overrideProtocol is true', function() {
+      assert.equal(
+        '//localhost:3000/a/2/b?c=cee&d=http://go#anchor', 
+        UTILS.uriRoute('http://:super/a/:to/:bee?c&d#anchor', { 
+          to: 2, 
+          super: 'www.acme.com',
+          bee: 'b',
+          c: 'cee', 
+          d: 'http://go' 
+        }, { 
+          base: '//localhost:3000',
+          overrideProtocol: true
+        })
+      );
+    }); 
+
   });
 
 });
