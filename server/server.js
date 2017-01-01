@@ -1,16 +1,18 @@
 'use strict';
 
-let mongoose = require('mongoose'),
+let db,
+    mongoose = require('mongoose'),
     express = require('express'),
     app = express(),
     API = require('./api/api.js'),
+    CONNECT = require('./connect.js'),
     Flows = require('./api/Flows/Flows.js'),
     bodyParser = require('body-parser');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://warmup:AHApKMFvSP6SM7x@ds145868.mlab.com:45868/warmuprx');
-// mongoose.connect('mongodb://localhost/WarmUpRx')
-    
+
+db = new CONNECT().open('mongodb://warmup:AHApKMFvSP6SM7x@ds145868.mlab.com:45868/warmuprx');
+
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 

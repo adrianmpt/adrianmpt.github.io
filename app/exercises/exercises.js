@@ -3,6 +3,7 @@
   var current,
       runTimeout,
       runTimerTimeout,
+      currentIndex = 0,
       totalDuration = 0,
       currentDuration = 0,
       currentExercise = 0,
@@ -15,11 +16,14 @@
 
   function findSection(section) {
     var r,
-      i, ii;
+        i, ii;
 
     for (i=0,ii=sections.length;i<ii;i++) {
       if (sections[i].name.toLowerCase() === section.toLowerCase()) {
-        r = sections[i];
+        r = {
+          section: sections[i],
+          index: i
+        };
         break;
       }
     }
@@ -27,25 +31,36 @@
     return r;
   }
 
-  function findSectionOrder(order, direction) {
-    var r,
-        i, ii;
+  function getEmptySection() {
 
-    for (i=0,ii=sections.length;i<ii;i++) {
+  }
+
+  function getSectionByOrder(direction) {
+
+    var r = getEmptySection(),
+        nextIndex,
+        lastIndex;
+
       if (direction === 'next') {
-        if (sections[i].order === order + 1) {
-          r = sections[i];
-          break;
+        if (currentIndex + 1 === sections.length) {
+          nextIndex = 0;
+        }else{
+          nextIndex = currentIndex + 1;
         }
+        r = sections[nextIndex];
       }else if (direction === 'last') {
-        if (sections[i].order === order - 1) {
-          r = sections[i];
-          break;
+        if (currentIndex - 1 < 0) {
+          lastIndex = sections.length - 1;
+        }else{
+          lastIndex = currentIndex - 1;
+        }
+        if (sections[lastIndex]) {
+          r = sections[lastIndex];
         }
       }
-    }
 
     return r;
+
   }
 
   function setName() {
@@ -68,12 +83,13 @@
   }
 
   function setNav() {
-    //setNext();
-    //setLast();
+    // Must set last before first
+    setLast();
+    setNext();
   }
 
   function setNext() {
-    var section = findSectionOrder(current.order, 'next'),
+    var section = getSectionByOrder('next'),
         next = $('#exercise-next');
 
     next.html('');
@@ -81,7 +97,7 @@
   }
 
   function setLast() {
-    var section = findSectionOrder(current.order, 'last'),
+    var section = getSectionByOrder('last'),
         last = $('#exercise-last');
 
     last.html('');
@@ -124,33 +140,39 @@
     }, current.items[currentExercise].duration);
 
     if (currentExercise < current.items.length) {
-      startTime = (new Date()).getTime();
-      runTimer(true);
+      runTimer((new Date()).getTime(), true);
     }
 
   }
 
-  function runTimer(init) {
+  function runTimer(startTime, init) {
     var currentTime = Math.abs(startTime - (new Date()).getTime());
 
     if (runTimerTimeout) {    
       clearTimeout(runTimerTimeout);
     }
 
+    console.log('runTimer', currentTime);
+
     runTimerTimeout = setTimeout(function() {
       if (currentExercise < current.items.length && 
           currentTime <= current.items[currentExercise].duration) {
         updateTime(currentTime);
-        runTimer();
+        runTimer(startTime);
       }
     }, 1000);
   }
 
   function updateTime(currentTime) {
-    var c = UTILS.msToSec(currentTime),
-        d = UTILS.msToSec(current.items[currentExercise].duration);
 
-    $('#exercise-timer').text(UTILS.secondsToTime(d - c));
+    var c = UTILS.msToSec(currentTime),
+        d = UTILS.msToSec(current.items[currentExercise].duration),
+        time = UTILS.secondsToTime(d - c);
+
+    $('#exercise-timer').text(time);
+
+    return time;
+
   }
 
   function end() {
@@ -158,11 +180,6 @@
 
     $(lis[currentExercise - 1]).removeClass('selected').addClass('done');
     $('#exercise-timer').text('Workout Complete!');
-  }
-
-  function onHashChange(e) {
-    $(window).unbind('hashchange');
-    init();
   }
 
   function resetApp() {
@@ -179,17 +196,37 @@
 
   }
 
-  function onFlowsComplete(response) {
-    sections = response;
-    current = getSection();
+  function startApp(sections) {
+    var found = getSection();
+
+    UTILS.sortOrder(sections);
+    current = found.section;
+    currentIndex = found.index;
     setNav();
     start(current);
     $(window).bind('hashchange', onHashChange);
+
+  }
+
+  function onFlowsComplete(response) {
+
+    sections = response;
+    startApp(sections);
+
+  }
+
+  function onHashChange(e) {
+    $(window).unbind('hashchange');
+    init();
   }
 
   function init() {
     resetApp();
-    API.tenants.flows().then(onFlowsComplete);
+    if (!sections.length) {
+      API.tenants.flows().then(onFlowsComplete);
+    }else{
+      startApp(sections);
+    }
   }
 
   init();

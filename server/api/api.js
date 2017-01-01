@@ -1,6 +1,6 @@
 'use strict';
 
-function API() {
+const API = function() {
 
   let _api = {
 
@@ -12,7 +12,7 @@ function API() {
 
     use: function(config) {
       this.config = config;
-      console.log(this.config);
+
       return this.handler;
     },
 
@@ -30,15 +30,14 @@ function API() {
       _api.config.options.body = req.body;
     
       method(_api.config.options).then(function(docs) {
-        
         // Document was returned
         if (docs) {
-          res.send(docs)
+          res.send(docs);
         }else{
-          res.send('{ "success": true }')
+          res.send('{ "success": true }');
         }
 
-        next()
+        next();
 
       });
 

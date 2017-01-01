@@ -1,15 +1,35 @@
-var API = {
-  tenants: {
-    flows: function() {
-      return $.ajax({
-        url: UTILS.uriRoute('/tenants/:id/flows', {
-          id: '5867154d6db68230ef1c5dec'
-        }, { base: 'http://localhost:8081/api' }),
-        method: 'get' 
-      });
+var API = (function() {
+
+  var config = {
+    endpoint: {
+      base: 'http://localhost:8081/api',
+      version: 1
+    }
+  };
+
+  return {
+
+    tenants: {
+
+      flows: function () {
+
+        return $.ajax({
+          method: 'get',
+          url: UTILS.uriRoute({
+            route: '/tenants/:id/flows',
+            params: {
+              id: '5867154d6db68230ef1c5dec'
+            },
+            options: config.endpoint
+          })
+        });
+
+      }
+
     }
   }
-};
+
+})();
 
 if (typeof module !== 'undefined' && module.exports != null) {
   exports.API = API;
