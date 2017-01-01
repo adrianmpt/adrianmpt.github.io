@@ -1,15 +1,17 @@
 (function() {
-  
+
   var current,
       runTimeout,
       runTimerTimeout,
+      initRunTimer,
+      startRunTimer,
       currentIndex = 0,
       totalDuration = 0,
       currentDuration = 0,
       currentExercise = 0,
       transpiredDuration = 0,
       sections = [];
-      
+
   function getSection() {
     return findSection(window.location.hash.replace('#', ''));
   }
@@ -158,27 +160,38 @@
     }, current.items[currentExercise].duration);
 
     if (currentExercise < current.items.length) {
-      runTimer((new Date()).getTime(), true);
+      if (startRunTimer) {
+        clearTimeout(startRunTimer);
+      }
+      startRunTimer = setTimeout(function() {
+        runTimer((new Date()).getTime());
+      }, 1000);
     }
 
   }
 
-  function runTimer(startTime, init) {
-    var currentTime = Math.abs(startTime - (new Date()).getTime());
+  function runTimer(startTime, last) {
+    var currentTime = Math.abs(startTime - (new Date()).getTime()),
+        recurseTimerFn = function() {
+          if (currentExercise < current.items.length) {
+            if (currentTime <= current.items[currentExercise].duration) {
+              runTimer(startTime);
+            }
+          }
+        };
 
     if (runTimerTimeout) {    
       clearTimeout(runTimerTimeout);
     }
 
-    console.log('runTimer', currentTime);
+    if (initRunTimer) {
+      clearTimeout(initRunTimer);
+    }
 
-    runTimerTimeout = setTimeout(function() {
-      if (currentExercise < current.items.length && 
-          currentTime <= current.items[currentExercise].duration) {
-        updateTime(currentTime);
-        runTimer(startTime);
-      }
-    }, 1000);
+    console.log('runTimer', currentTime);
+    updateTime(currentTime);
+    runTimerTimeout = setTimeout(recurseTimerFn, 1000);
+
   }
 
   function updateTime(currentTime) {
