@@ -31,7 +31,23 @@
     return r;
   }
 
+  function getEmptySectionItem() {
+    return {
+      order: 1,
+      exercise: "No instructions available",
+      duration: 0
+    };
+  }
+
   function getEmptySection() {
+
+    return {
+      items: [getEmptySectionItem()],
+      level: 1,
+      order: 1,
+      label: "No instructions",
+      name: "empty"
+    }
 
   }
 
@@ -47,7 +63,9 @@
         }else{
           nextIndex = currentIndex + 1;
         }
-        r = sections[nextIndex];
+        if (sections[nextIndex]) {
+          r = sections[nextIndex];
+        }
       }else if (direction === 'last') {
         if (currentIndex - 1 < 0) {
           lastIndex = sections.length - 1;
@@ -203,7 +221,7 @@
     current = found.section;
     currentIndex = found.index;
     setNav();
-    start(current);
+    start(current || getEmptySection());
     $(window).bind('hashchange', onHashChange);
 
   }
