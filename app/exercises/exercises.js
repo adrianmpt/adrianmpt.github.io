@@ -1,16 +1,25 @@
 (function() {
 
   var current,
-      runTimeout,
       runTimerTimeout,
-      initRunTimer,
       startRunTimer,
+      startDelayTimer,
+      startDelayInterval = 3,
+      runEndDelayTimer,
+      runEndDelayInterval = 3,
       currentIndex = 0,
       totalDuration = 0,
       currentDuration = 0,
       currentExercise = 0,
       transpiredDuration = 0,
-      sections = [];
+      sections = [],
+      startDelayMessaging = [
+        'Ready',
+        'Set',
+        'Go!'
+      ],
+      runEndDelayMessage = 'Cooldown',
+      endMessage = 'Workout Complete!';
 
   function getSection() {
     return findSection(window.location.hash.replace('#', ''));
@@ -128,11 +137,54 @@
     setName();
     setItems(section.items);
     currentExercise = 0;
-    $('#exercise-timer').text('Ready!');
 
     run();
   }
 
+  function startDelay(seconds, count) {
+    var _count = count || 0,
+        interval = UTILS.secToMs(seconds) / 3;
+
+    $('#exercise-timer').text(startDelayMessaging.slice(0)[_count]);
+
+    // Cleanup any old timer
+    if (startDelayTimer) {
+      clearTimeout(startDelayTimer);
+    }
+
+    if (_count < startDelayMessaging.length) {
+      startDelayTimer = setTimeout(function () {
+        startDelay(seconds, ++_count);
+      }, interval);
+    }else{
+      runTimer((new Date()).getTime());
+    }
+  }
+
+  /**
+   * At the end of every run add a delay with message
+   * before beginning next run sequence
+   * @param seconds
+   */
+  function runEndDelay(seconds) {
+
+    var interval = UTILS.secToMs(seconds);
+
+    if (runEndDelayTimer) {
+      clearTimeout(runEndDelayTimer);
+    }
+
+    $('#exercise-timer').text(runEndDelayMessage + ' (' + runEndDelayInterval + 's)');
+
+    runEndDelayTimer = setTimeout(function() {
+      run();
+    }, interval);
+
+  }
+
+  /**
+   * Pick up next exercise in sequence and begin anew
+   */
   function run() {
 
     var i, ii,
@@ -145,47 +197,43 @@
     $(lis[currentExercise]).addClass('selected');
     setStepCount();
 
-    if (runTimeout) {
-      clearTimeout(runTimeout);
+    lastExercise = currentExercise;
+    currentExercise++;
+
+    // Clean up any old timer
+    if (startRunTimer) {
+      clearTimeout(startRunTimer);
     }
 
-    runTimeout = setTimeout(function() {
-      lastExercise = currentExercise;
-      currentExercise++;
-      if (currentExercise < current.items.length) {
-        run();
-      }else{
-        end();
-      }
-    }, current.items[currentExercise].duration);
-
     if (currentExercise < current.items.length) {
-      if (startRunTimer) {
-        clearTimeout(startRunTimer);
-      }
-      startRunTimer = setTimeout(function() {
-        runTimer((new Date()).getTime());
-      }, 1000);
+      startDelay(startDelayInterval);
+    }else{
+      end();
     }
 
   }
 
-  function runTimer(startTime, last) {
+  /**
+   * Runs using the startTime in milliseconds
+   * @param startTime
+   */
+  function runTimer(startTime) {
     var currentTime = Math.abs(startTime - (new Date()).getTime()),
         recurseTimerFn = function() {
           if (currentExercise < current.items.length) {
+            // Count down until the duration is up and recurse
+            // otherwise restart the entire run sequence
+            // to get the next exercise
             if (currentTime <= current.items[currentExercise].duration) {
               runTimer(startTime);
+            }else{
+              runEndDelay(runEndDelayInterval);
             }
           }
         };
 
-    if (runTimerTimeout) {    
+    if (runTimerTimeout) {
       clearTimeout(runTimerTimeout);
-    }
-
-    if (initRunTimer) {
-      clearTimeout(initRunTimer);
     }
 
     console.log('runTimer', currentTime);
@@ -210,17 +258,13 @@
     var lis = $('#exercise-list').find('li');
 
     $(lis[currentExercise - 1]).removeClass('selected').addClass('done');
-    $('#exercise-timer').text('Workout Complete!');
+    $('#exercise-timer').text(endMessage);
   }
 
   function resetApp() {
     
     if (runTimerTimeout) {
       clearTimeout(runTimerTimeout);
-    }
-    
-    if (runTimeout) {
-      clearTimeout(runTimeout);
     }
 
     $('#exercise-steps').html('');

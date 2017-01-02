@@ -15,6 +15,13 @@ describe('UTILS', function() {
 
   });
 
+  describe('secToMs', function() {
+    assert.equal(3000, UTILS.secToMs(3));
+    assert.equal(103000, UTILS.secToMs(103));
+    assert.equal(302003, UTILS.secToMs(302.003));
+    assert.equal(11200, UTILS.secToMs(11.2));
+  });
+
   describe('secondsToTime', function() {
     
     it('should convert seconds to readable time', function() {

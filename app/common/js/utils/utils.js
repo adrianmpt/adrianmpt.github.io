@@ -10,6 +10,15 @@ var UTILS = {
   },
 
   /**
+   * Convert seconds to ms
+   * @param s
+   * @returns {Number}
+   */
+  secToMs: function(s) {
+    return parseInt(s * 1000, 10);
+  },
+
+  /**
    * Convert seconds to readable time
    * @param second
    * @returns {string}
