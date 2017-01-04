@@ -4,6 +4,7 @@
       runTimerTimeout,
       startRunTimer,
       startDelayTimer,
+      chain = true,
       startDelayInterval = 3,
       runEndDelayTimer,
       runEndDelayInterval = 3,
@@ -255,10 +256,14 @@
   }
 
   function end() {
-    var lis = $('#exercise-list').find('li');
+    var lis = $('#exercise-list').find('li'),
+        timer = $('#exercise-timer');
 
     $(lis[currentExercise - 1]).removeClass('selected').addClass('done');
-    $('#exercise-timer').text(endMessage);
+    timer.text(endMessage);
+    if (chain) {
+      timer.append('<a href="#' + section.name + '"><span class="fa fa-arrow-circle-left" role="presentation"></span> ' + section.label + '</a>')
+    }
   }
 
   function resetApp() {

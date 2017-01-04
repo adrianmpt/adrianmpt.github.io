@@ -1,0 +1,20 @@
+{
+  "name": "adrianmpt.github.io",
+  "description": "Wake Up Rx",
+  "main": "",
+  "authors": [
+    "Aramys Miranda <aramys@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/adrianmpt/adrianmpt.github.io",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "^4.7.0"
+  }
+}
