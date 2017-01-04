@@ -1,6 +1,6 @@
 var ROUTES = {
   exercises: {
-    path: 'app/exercises/exercises.html'
+    path: 'exercises/exercises.html'
   }
 };
 
