@@ -300,7 +300,6 @@
     var progress = (time / totalDuration) * 100;
     console.log('checkProgress', progress);
     $('#exercise-progress').val(progress);
-
   }
 
   function end() {

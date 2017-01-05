@@ -24,7 +24,8 @@
   color: #fff;
 }
 
-.exercise-timer {
+.exercise-timer,
+.exercise-percentage {
   font-size: 420%;
   text-align: center;
 }
