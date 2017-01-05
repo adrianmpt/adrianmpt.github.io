@@ -5,6 +5,7 @@
   <title>Warm Up Rx</title>
   <link href="https://fonts.googleapis.com/css?family=Raleway:100,400,500,600" rel="stylesheet">
   <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap-flex.min.css">
   <link rel="stylesheet" href="../common/css/fonts.css">
   <link rel="stylesheet" href="../common/css/global.css">
   <link rel="stylesheet" href="exercises.css">
@@ -20,34 +21,42 @@
     </nav>
   </header>
 
-  <div class="flex-container exercise-header">
-    <div class="flex-column-1">
-      <h2 class="exercise-last font-nl" id="exercise-last"></h2>
+  <div class="container-fluid">
+    <div class="row exercise-header">
+      <div class="col-xs">
+        <h2 class="exercise-last font-nl" id="exercise-last"></h2>
+      </div>
+      <div class="col-xs">
+        <h2 class="exercise-current font-lg">
+          <span id="flow-name"></span>
+          <span id="flow-count"></span>
+        </h2>
+      </div>
+      <div class="col-xs">
+        <h2 class="exercise-next font-nl" id="exercise-next"></h2>
+      </div>
     </div>
-    <div class="flex-column-2">
-      <h2 class="exercise-current font-lg">
-        <span id="exercise-name"></span>
-        <span id="exercise-count"></span>
-      </h2>
+    <div class="row exercise-subheader hidden-sm-up text-xs-center">
+      <span class="font-md col-xs" id="exercise-name"></span>
     </div>
-    <div class="flex-column-1">
-      <h2 class="exercise-next font-nl" id="exercise-next"></h2>
-    </div>    
-  </div>
-  
-  <div class="flex-container">
-    <div class="exercise-progress progress-bar" id="exercise-progress"></div>
-  </div>
 
-  <div class="flex-container">
-    <div class="flex-column-2">
-      <p id="exercise-timer" class="section-content exercise-timer"></p>
+    <div class="row exercise-progress">
+      <progress class="progress progress-warning"
+                id="exercise-progress"
+                value="0"
+                max="100"
+                aria-describedby="exercise-progress-caption"></progress>
     </div>
-    <div class="flex-column-2">
-      <p id="exercise-steps" class="section-content exercise-steps"></p>
+
+    <div class="row main-body">
+      <div class="col-xs">
+        <p id="exercise-timer" class="section-content exercise-timer"></p>
+      </div>
+      <div class="col-xs hidden-xs-down">
+        <p id="exercise-steps" class="section-content exercise-steps"></p>
+      </div>
     </div>
   </div>
-
   <footer>
     &copy; Warm Up Rx
   </footer>

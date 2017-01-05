@@ -18,15 +18,17 @@
   
   function createSection(section) {
     // Create section item with header and content
-    var sec = $('<section class="flex-item"></section>'),
-        blk = $('<div class="feature-block"></div>'),
+    var sec = $('<section class="feature col-xs-12 col-md col-lg col-xl-12"></section>'),
+        item = $('<div class="feature-item"></div>'),
+        blk = $('<div class="feature-block col-xl-4"></div>'),
         h2 = $('<h2 class="section-header"></h2>'),
         a = $('<a href="' + ROUTES.exercises.path + '#' + section.name + '" class="font-xl">' + section.label + '</a>'),
         btn = $('<a href="' + ROUTES.exercises.path + '#' + section.name + '" class="btn"> Begin Workout <span class="fa fa-arrow-circle-right" role="presentation"></span></a>');
 
     // Nest markup
-    sec.append(blk);
-    sec.append(createSectionList(section));
+    sec.append(item);
+    item.append(blk);
+    item.append(createSectionList(section));
     blk.append(h2.append(a));
     blk.append(btn);
 
@@ -35,6 +37,7 @@
 
   function createSectionList(section) {
     var i, ii,
+        div = $('<div class="col-xl-8"></div>'),
         ol = $('<ol class="feature-list"></ol>');
 
     section.items.sort(function(a, b) {
@@ -48,7 +51,7 @@
     });
 
     for (i=0,ii=section.items.length;i<ii;i++) {
-      ol.append($('<li>' + section.items[i].exercise + '</li>'));
+      div.append(ol.append($('<li>' + section.items[i].exercise + '</li>')));
     }
 
     return ol;

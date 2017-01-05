@@ -71,6 +71,11 @@ nav .btn {
   width: 120px;
 }
 
+.main-body {
+  background: #fff;
+  padding: 20px 0;
+}
+
 /** Section **/
 .section-header {
   padding: 10px;

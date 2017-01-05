@@ -1,6 +1,10 @@
 .exercise-header {
   background: #ab0000;
   color: #fff;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  align-content: center;
+  align-items: baseline;
 }
 
 .exercise-header a {
@@ -13,6 +17,13 @@
   background: #8c0000;
 }
 
+.exercise-subheader {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  background: #8c0000;
+  color: #fff;
+}
+
 .exercise-timer {
   font-size: 420%;
   text-align: center;
@@ -20,9 +31,17 @@
 
 .exercise-progress {
   background: #700000;
-  height: 10px;
-  width: 0;
   overflow: hidden;
+}
+.exercise-progress .progress {
+  margin-bottom: 0;
+  border-radius: 0;
+  border: 0;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 .exercise-steps ol {
   list-style-type: none;
@@ -54,4 +73,28 @@
   padding-right: 20px;
   text-align: right;
 }
- 
+
+
+@media (min-width: 576px) {
+  .feature-item {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 768px) {
+  .feature-item {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 992px) {
+  .feature-item {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1200px) {
+  .feature-item {
+    flex-direction: row;
+  }
+}

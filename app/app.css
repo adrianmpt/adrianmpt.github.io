@@ -1,3 +1,15 @@
+.feature {
+  margin-bottom: 20px;
+}
+
+.feature-item {
+  background: #efefef;
+  box-shadow: 2px 2px 5px #aaa;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .feature-block {
   background: #ab0000;
   text-align: center;
@@ -20,7 +32,35 @@
 .feature-block .btn:hover {
   background: #8c0000;
 }
+.feature-list {
+  background: #efefef;
+  padding-top: 10px;
 
+}
 .feature-list li {
   line-height: 1.4em;
+}
+
+@media (min-width: 576px) {
+  .feature-item {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 768px) {
+  .feature-item {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 992px) {
+  .feature-item {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1200px) {
+  .feature-item {
+    flex-direction: row;
+  }
 }

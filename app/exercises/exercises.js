@@ -4,15 +4,14 @@
       runTimerTimeout,
       startRunTimer,
       startDelayTimer,
+      progressTimer,
       chain = true,
       startDelayInterval = 3,
       runEndDelayTimer,
       runEndDelayInterval = 3,
       currentIndex = 0,
       totalDuration = 0,
-      currentDuration = 0,
       currentExercise = 0,
-      transpiredDuration = 0,
       sections = [],
       startDelayMessaging = [
         'Ready',
@@ -94,11 +93,12 @@
   }
 
   function setName() {
-    $('#exercise-name').text(current.label);
+    $('#flow-name').text(current.label);
   }
 
   function setStepCount() {
-    $('#exercise-count').text(': ' + (currentExercise + 1) + ' of ' + current.items.length);
+    $('#flow-count').text(': ' + (currentExercise + 1) + ' of ' + current.items.length);
+    $('#exercise-name').text(current.items[currentExercise].exercise);
   }
 
   function setItems(items) {
@@ -123,7 +123,7 @@
         next = $('#exercise-next');
 
     next.html('');
-    next.append('<a href="#' + section.name + '">' + section.label + ' <span class="fa fa-arrow-circle-right" role="presentation"></span></a>');
+    next.append('<a href="#' + section.name + '"><span class="hidden-sm-down">' + section.label + '</span> <span class="fa fa-arrow-circle-right" role="presentation"></span></a>');
   }
 
   function setLast() {
@@ -131,15 +131,28 @@
         last = $('#exercise-last');
 
     last.html('');
-    last.append('<a href="#' + section.name + '"><span class="fa fa-arrow-circle-left" role="presentation"></span> ' + section.label + '</a>');
+    last.append('<a href="#' + section.name + '"><span class="fa fa-arrow-circle-left" role="presentation"></span> <span class="hidden-sm-down">' + section.label + '</span></a>');
   }
 
-  function start(section) {
+  function setTotalDuration() {
+    var i, ii,
+        total = 0;
+
+    for (i=0,ii=current.items.length;i<ii;i++) {
+      total += UTILS.secToMs(startDelayInterval) +
+        UTILS.secToMs(runEndDelayInterval) +
+        current.items[i].duration;
+    }
+
+    return totalDuration = total;
+  }
+
+  function start(section, init) {
     setName();
     setItems(section.items);
     currentExercise = 0;
 
-    run();
+    run(init);
   }
 
   function startDelay(seconds, count) {
@@ -186,7 +199,7 @@
   /**
    * Pick up next exercise in sequence and begin anew
    */
-  function run() {
+  function run(init) {
 
     var i, ii,
         lis = $('#exercise-list').find('li');
@@ -198,7 +211,6 @@
     $(lis[currentExercise]).addClass('selected');
     setStepCount();
 
-    lastExercise = currentExercise;
     currentExercise++;
 
     // Clean up any old timer
@@ -208,6 +220,12 @@
 
     if (currentExercise < current.items.length) {
       startDelay(startDelayInterval);
+      if (init) {
+        if (progressTimer) {
+          clearInterval(progressTimer);
+        }
+        startProgress();
+      }
     }else{
       end();
     }
@@ -255,6 +273,36 @@
 
   }
 
+  function startProgress() {
+    var progressStartTime = (new Date()).getTime();
+
+    setTotalDuration();
+
+    progressTimer = setInterval(function() {
+      var progressCurrentTime = (new Date()).getTime(),
+          progressDeltaTime = progressCurrentTime - progressStartTime;
+
+      if (progressDeltaTime < totalDuration) {
+        checkProgress(progressDeltaTime);
+      }
+
+    }, 1);
+  }
+
+  function endProgress() {
+    if (progressTimer) {
+      clearInterval(progressTimer);
+    }
+    checkProgress(totalDuration);
+  }
+
+  function checkProgress(time) {
+    var progress = (time / totalDuration) * 100;
+    console.log('checkProgress', progress);
+    $('#exercise-progress').val(progress);
+
+  }
+
   function end() {
     var lis = $('#exercise-list').find('li'),
         timer = $('#exercise-timer');
@@ -264,6 +312,7 @@
     if (chain) {
       timer.append('<a href="#' + section.name + '"><span class="fa fa-arrow-circle-left" role="presentation"></span> ' + section.label + '</a>')
     }
+    endProgress();
   }
 
   function resetApp() {
@@ -283,7 +332,7 @@
     current = found.section;
     currentIndex = found.index;
     setNav();
-    start(current || getEmptySection());
+    start(current || getEmptySection(), true);
     $(window).bind('hashchange', onHashChange);
 
   }
