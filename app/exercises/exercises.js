@@ -210,7 +210,10 @@
       clearTimeout(runEndDelayTimer);
     }
 
-    $('#exercise-timer').text(CONFIG.runEndDelayMessage + ' (' + CONFIG.runEndDelayInterval + 's)');
+    if (typeof(CONFIG.runEndDelayMessage) === 'string' &&
+        CONFIG.runEndDelayMessage.length) {
+      $('#exercise-timer').text(CONFIG.runEndDelayMessage + ' (' + CONFIG.runEndDelayInterval + 's)');
+    }
 
     runEndDelayTimer = setTimeout(function() {
       run();
@@ -400,14 +403,10 @@
 })({
   chain: false,
   chainTimeoutInterval: 1,
-  startDelayInterval: 1,
+  startDelayInterval: 0,
   runEndDelayInterval: 1,
-  runTimerInterval: 1,
-  startDelayMessaging: [
-    'Einz',
-    'Zwei',
-    'Drei'
-  ],
-  runEndDelayMessage: 'Chill',
+  runTimerInterval: 0,
+  startDelayMessaging: [],
+  runEndDelayMessage: '',
   endMessage: 'You Done Good!'
 });
