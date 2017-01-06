@@ -1,4 +1,4 @@
-# Warm Up Rx `beta`
+# Warm Up Rx *beta*
 
 ## Installation
 
