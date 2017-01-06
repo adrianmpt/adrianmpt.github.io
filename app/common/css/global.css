@@ -19,9 +19,8 @@ a:visited {
   text-decoration: none;
 }
 
-a:hover {
-  color: #000;
-}
+a:hover {}
+
 /** Header **/
 header {
   width: 100%;

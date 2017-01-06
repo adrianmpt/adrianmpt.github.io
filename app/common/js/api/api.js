@@ -2,7 +2,7 @@ var API = (function() {
 
   var config = {
     endpoint: {
-      base: 'http://localhost:8081/api',
+      base: '/api',
       version: 1
     }
   };

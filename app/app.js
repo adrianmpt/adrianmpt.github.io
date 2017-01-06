@@ -23,7 +23,7 @@
         blk = $('<div class="feature-block col-xl-4"></div>'),
         h2 = $('<h2 class="section-header"></h2>'),
         a = $('<a href="' + ROUTES.exercises.path + '#' + section.name + '" class="font-xl">' + section.label + '</a>'),
-        btn = $('<a href="' + ROUTES.exercises.path + '#' + section.name + '" class="btn"> Begin Workout <span class="fa fa-arrow-circle-right" role="presentation"></span></a>');
+        btn = $('<a href="' + ROUTES.exercises.path + '#' + section.name + '" class="btn btn-danger"> Begin Workout <span class="fa fa-arrow-circle-right" role="presentation"></span></a>');
 
     // Nest markup
     sec.append(item);
