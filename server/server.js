@@ -11,7 +11,8 @@ let db,
 
 mongoose.Promise = global.Promise;
 
-db = new CONNECT().open('mongodb://warmup:AHApKMFvSP6SM7x@ds145868.mlab.com:45868/warmuprx');
+//db = new CONNECT().open('mongodb://warmup:AHApKMFvSP6SM7x@ds145868.mlab.com:45868/warmuprx');
+db = new CONNECT().open('mongodb://localhost/WarmUpRx');
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies

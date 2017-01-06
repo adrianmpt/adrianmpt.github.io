@@ -3,7 +3,7 @@
 
 <head>
   <title>Warm Up Rx</title>
-  <link href="https://fonts.googleapis.com/css?family=Raleway:100,400,500,600" rel="stylesheet">
+  <!--link href="https://fonts.googleapis.com/css?family=Raleway:100,400,500,600" rel="stylesheet"-->
   <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap-flex.min.css">
   <link rel="stylesheet" href="../common/css/fonts.css">
@@ -23,18 +23,14 @@
 
   <div class="container-fluid">
     <div class="row exercise-header">
-      <div class="col-xs">
-        <h2 class="exercise-last font-nl" id="exercise-last"></h2>
-      </div>
+      <div class="exercise-last col-xs font-nl" id="exercise-last"></div>
       <div class="col-xs">
         <h2 class="exercise-current font-lg">
           <span id="flow-name"></span>
           <span id="flow-count"></span>
         </h2>
       </div>
-      <div class="col-xs">
-        <h2 class="exercise-next font-nl" id="exercise-next"></h2>
-      </div>
+      <div class="exercise-next col-xs font-nl text-xs-right" id="exercise-next"></div>
     </div>
     <div class="row exercise-subheader hidden-sm-up text-xs-center">
       <span class="font-md col-xs" id="exercise-name"></span>
@@ -63,7 +59,7 @@
   </footer>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="../vendor/jquery/dist/jquery.min.js"></script>
 <script src="../common/js/utils/utils.js"></script>
 <script src="../common/js/routes/routes.js"></script>
 <script src="../common/js/api/api.js"></script>

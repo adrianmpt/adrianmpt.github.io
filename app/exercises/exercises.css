@@ -65,16 +65,14 @@
 .exercise-current {
   text-align: center; 
 }
-
-.exercise-last {
-  padding-left: 20px;
+.exercise-current span {
+  vertical-align: -0.2em;
 }
 
-.exercise-next {
-  padding-right: 20px;
-  text-align: right;
+.exercise-last .btn,
+.exercise-next .btn {
+  border: 0;
 }
-
 
 @media (min-width: 576px) {
   .feature-item {

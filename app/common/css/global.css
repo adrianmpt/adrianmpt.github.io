@@ -9,7 +9,7 @@ body {
   padding: 0;
   margin: 0;
   background: #000;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Raleway', Verdana, sans-serif;
 }
 
 a,
@@ -17,7 +17,6 @@ a:link,
 a:focus,
 a:visited {
   text-decoration: none;
-  color: #333;
 }
 
 a:hover {
@@ -39,6 +38,9 @@ h1 {
   float: left;
 }
 
+header h1 a {
+  color: #333;
+}
 /** Footer **/
 footer {
   text-align: center;

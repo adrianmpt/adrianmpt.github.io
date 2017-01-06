@@ -1,4 +1,4 @@
-(function() {
+(function(options) {
 
   var current,
       runTimerTimeout,
@@ -6,22 +6,28 @@
       startDelayTimer,
       progressTimer,
       chain = true,
-      startDelayInterval = 3,
+      chainTimeout,
       runEndDelayTimer,
-      runEndDelayInterval = 3,
-      runTimerInterval = 1,
       currentIndex = 0,
       totalDuration = 0,
       lastExercise = 0,
       currentExercise = 0,
-      sections = [],
-      startDelayMessaging = [
-        'Ready',
-        'Set',
-        'Go!'
-      ],
-      runEndDelayMessage = 'Cooldown',
-      endMessage = 'Workout Complete!';
+      sections = [];
+
+  var CONFIG = {
+    chain: true,
+    chainTimeoutInterval: 3,
+    startDelayInterval: 3,
+    runEndDelayInterval: 3,
+    runTimerInterval: 1,
+    startDelayMessaging: [
+      'Ready',
+      'Set',
+      'Go!'
+    ],
+    runEndDelayMessage: 'Cooldown',
+    endMessage: 'Workout Complete!'
+  };
 
   function getSection() {
     return findSection(window.location.hash.replace('#', ''));
@@ -137,7 +143,7 @@
         next = $('#exercise-next');
 
     next.html('');
-    next.append('<a href="#' + section.name + '"><span class="hidden-sm-down">' + section.label + '</span> <span class="fa fa-arrow-circle-right" role="presentation"></span></a>');
+    next.append('<a class="btn btn-danger" href="#' + section.name + '"><span class="hidden-sm-down">' + section.label + '</span> <span class="fa fa-arrow-circle-right" role="presentation"></span></a>');
   }
 
   function setLast() {
@@ -145,7 +151,7 @@
         last = $('#exercise-last');
 
     last.html('');
-    last.append('<a href="#' + section.name + '"><span class="fa fa-arrow-circle-left" role="presentation"></span> <span class="hidden-sm-down">' + section.label + '</span></a>');
+    last.append('<a class="btn btn-danger" href="#' + section.name + '"><span class="fa fa-arrow-circle-left" role="presentation"></span> <span class="hidden-sm-down">' + section.label + '</span></a>');
   }
 
   function setTotalDuration() {
@@ -153,9 +159,9 @@
         total = 0;
 
     for (i=0,ii=current.items.length;i<ii;i++) {
-      total += UTILS.secToMs(startDelayInterval) +
-        UTILS.secToMs(runEndDelayInterval) +
-        UTILS.secToMs(runTimerInterval) +
+      total += UTILS.secToMs(CONFIG.startDelayInterval) +
+        UTILS.secToMs(CONFIG.runEndDelayInterval) +
+        UTILS.secToMs(CONFIG.runTimerInterval) +
         current.items[i].duration;
     }
 
@@ -175,14 +181,14 @@
     var _count = count || 0,
         interval = UTILS.secToMs(seconds) / 3;
 
-    $('#exercise-timer').text(startDelayMessaging.slice(0)[_count]);
+    $('#exercise-timer').text(CONFIG.startDelayMessaging.slice(0)[_count]);
 
     // Cleanup any old timer
     if (startDelayTimer) {
       clearTimeout(startDelayTimer);
     }
 
-    if (_count < startDelayMessaging.length) {
+    if (_count < CONFIG.startDelayMessaging.length) {
       startDelayTimer = setTimeout(function () {
         startDelay(seconds, ++_count);
       }, interval);
@@ -204,7 +210,7 @@
       clearTimeout(runEndDelayTimer);
     }
 
-    $('#exercise-timer').text(runEndDelayMessage + ' (' + runEndDelayInterval + 's)');
+    $('#exercise-timer').text(CONFIG.runEndDelayMessage + ' (' + CONFIG.runEndDelayInterval + 's)');
 
     runEndDelayTimer = setTimeout(function() {
       run();
@@ -234,7 +240,7 @@
     }
 
     if (currentExercise < current.items.length) {
-      startDelay(startDelayInterval);
+      startDelay(CONFIG.startDelayInterval);
       if (init) {
         if (progressTimer) {
           clearInterval(progressTimer);
@@ -264,7 +270,7 @@
             if (currentTime <= current.items[lastExercise].duration) {
               runTimer(startTime);
             }else{
-              runEndDelay(runEndDelayInterval);
+              runEndDelay(CONFIG.runEndDelayInterval);
             }
           }
         };
@@ -275,7 +281,7 @@
 
     console.log('runTimer', currentTime);
     updateTime(currentTime);
-    runTimerTimeout = setTimeout(recurseTimerFn, UTILS.msToSec(runTimerInterval));
+    runTimerTimeout = setTimeout(recurseTimerFn, UTILS.msToSec(CONFIG.runTimerInterval));
 
   }
 
@@ -326,8 +332,16 @@
         nextSection = sections[getNextSectionIndex()];
 
     $(lis[lastExercise]).removeClass('selected').addClass('done');
-    timer.text(endMessage);
+    timer.text(CONFIG.endMessage);
+    if (chainTimeout) {
+      clearTimeout(chainTimeout);
+    }
     if (chain) {
+      timer.after($('<p id="exercise-continue" class="font-md text-xs-center">Continuing on to ' + nextSection.label + ' in ' + CONFIG.chainTimeoutInterval + ' seconds</p>'));
+      chainTimeout = setTimeout(function() {
+        window.location.hash = nextSection.name;
+      }, UTILS.secToMs(CONFIG.chainTimeoutInterval));
+    }else{
       timer.after($('<p id="exercise-continue" class="text-xs-center"><a class="btn btn-danger" href="#' + nextSection.name + '">Continue on to ' + nextSection.label + ' <span class="fa fa-arrow-circle-right" role="presentation"></span></a></p>'));
     }
     endProgress();
@@ -345,6 +359,7 @@
   }
 
   function startApp(sections) {
+
     var found = getSection();
 
     UTILS.sortOrder(sections);
@@ -368,7 +383,10 @@
     init();
   }
 
-  function init() {
+  function init(options) {
+
+    CONFIG = $.extend(CONFIG, options);
+
     resetApp();
     if (!sections.length) {
       API.tenants.flows().then(onFlowsComplete);
@@ -377,6 +395,19 @@
     }
   }
 
-  init();
+  init(options);
 
-})();
+})({
+  chain: false,
+  chainTimeoutInterval: 1,
+  startDelayInterval: 1,
+  runEndDelayInterval: 1,
+  runTimerInterval: 1,
+  startDelayMessaging: [
+    'Einz',
+    'Zwei',
+    'Drei'
+  ],
+  runEndDelayMessage: 'Chill',
+  endMessage: 'You Done Good!'
+});
