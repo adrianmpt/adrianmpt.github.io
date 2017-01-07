@@ -14,18 +14,21 @@
   background: #ab0000;
   text-align: center;
   overflow: hidden;
+  cursor: pointer;
 }
 
-.feature-block .font-xl {
+.feature-block .section-header {
   color: #fff;
   display: block;
   margin: 2em 0 1.6em;
 }
 
-.feature-block .btn {
-  border: 2px solid #fff;
+.feature-block .section-button {
   margin: 0 0 4em 0;
-  display: inline-block;
+}
+
+.feature-block .section-button .btn {
+  border: 2px solid #fff;
 }
 
 .feature-block .btn:hover {
@@ -40,15 +43,27 @@
   line-height: 1.4em;
 }
 
-@media (min-width: 576px) {
+@media (max-width: 576px) {
   .feature-item {
     flex-direction: column;
   }
+  .feature-block .section-header {
+    margin: 2em 0;
+  }
+  .feature-block .section-button {
+    margin: 2em 0;
+  }
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .feature-item {
     flex-direction: column;
+  }
+  .feature-block .section-header {
+    margin: 2em 0;
+  }
+  .feature-block .section-button {
+    margin: 2em 0;
   }
 }
 

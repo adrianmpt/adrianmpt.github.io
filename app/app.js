@@ -21,16 +21,21 @@
     var sec = $('<section class="feature col-xs-12 col-md col-lg col-xl-12"></section>'),
         item = $('<div class="feature-item"></div>'),
         blk = $('<div class="feature-block col-xl-4"></div>'),
-        h2 = $('<h2 class="section-header"></h2>'),
-        a = $('<a href="' + ROUTES.exercises.path + '#' + section.name + '" class="font-xl">' + section.label + '</a>'),
-        btn = $('<a href="' + ROUTES.exercises.path + '#' + section.name + '" class="btn btn-danger"> Begin Workout <span class="fa fa-arrow-circle-right" role="presentation"></span></a>');
+        blkRow = $('<div class="row feature-block-inner"></div>'),
+        h2 = $('<h2 class="section-header text-xs-left text-sm-left text-md-center col-xs-8 col-md-12"><span class="font-xl">' + section.label + '</span></h2>'),
+        btnSec = $('<div class="section-button text-xs-right text-sm-right text-md-center col-xs-4 col-md-12"></div>'),
+        btn = $('<a href="' + ROUTES.exercises.path + '#' + section.name + '" class="btn btn-danger"> Begin <span class="hidden-sm-down">Workout</span> <span class="fa fa-arrow-circle-right" role="presentation"></span></a>');
 
     // Nest markup
     sec.append(item);
-    item.append(blk);
+    item.append(blk.append(blkRow));
     item.append(createSectionList(section));
-    blk.append(h2.append(a));
-    blk.append(btn);
+    blkRow.append(h2);
+    blkRow.append(btnSec.append(btn));
+
+    blkRow.bind('click', function(e) {
+      window.location.href = ROUTES.exercises.path + '#' + section.name;
+    });
 
     return sec;
   }
