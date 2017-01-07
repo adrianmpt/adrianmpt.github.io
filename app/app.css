@@ -16,7 +16,9 @@
   overflow: hidden;
   cursor: pointer;
 }
-
+.feature-block-inner {
+  height: 100%;
+}
 .feature-block .section-header {
   color: #fff;
   display: block;
