@@ -58,6 +58,15 @@ app.post('/tenants', new API().use({
   })
 );
 
+app.get('/tenants/:id', new API().use({
+    name: 'Tenants',
+    method: 'get',
+    options: {
+      id: ':id'
+    }
+  })
+);
+
 /** Tenant Flows **/
 app.get('/tenants/:id/flows', new API().use({
     name: 'Tenants',

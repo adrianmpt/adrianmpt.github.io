@@ -11,6 +11,20 @@ var API = (function() {
 
     tenants: {
 
+      get: function() {
+        return $.ajax({
+          method: 'get',
+          url: UTILS.uriRoute({
+            route: '/tenants/:id',
+            params: {
+              //id: '5867154d6db68230ef1c5dec'
+              id: '58706cce12a4c108e9fc41d3'
+            },
+            options: config.endpoint
+          })
+        })
+      },
+
       flows: function () {
 
         return $.ajax({
@@ -19,7 +33,7 @@ var API = (function() {
             route: '/tenants/:id/flows',
             params: {
               //id: '5867154d6db68230ef1c5dec'
-              id: '586e86c99f6c6a0978109190'
+              id: '58706cce12a4c108e9fc41d3'
             },
             options: config.endpoint
           })

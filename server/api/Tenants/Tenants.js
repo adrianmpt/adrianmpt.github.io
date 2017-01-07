@@ -46,9 +46,10 @@ const Tenants = {
 
   get: function(options) {
 
-    let mTenant = mongoose.model('Tenant', Tenant);
+    let id = mongoose.Types.ObjectId(options.id),
+        mTenant = mongoose.model('Tenant', Tenant);
 
-    return mTenant.find(options).exec();
+    return mTenant.findOne({ "_id": id }).exec();
 
   },
 
