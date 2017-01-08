@@ -392,7 +392,6 @@
 
     resetApp();
     if (!sections.length) {
-      API.tenants.get().then();
       API.tenants.flows().then(onFlowsComplete);
     }else{
       startApp(sections);

@@ -1,4 +1,9 @@
 {
+  "test":  {
+    "driver": "mongodb",
+    "database": "WarmUpRxTest",
+    "host": "localhost"
+  },
   "dev":  {
     "driver": "mongodb",
     "database": "WarmUpRx",

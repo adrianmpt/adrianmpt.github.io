@@ -68,6 +68,7 @@ const Tenants = {
           return mongoose.Types.ObjectId(doc);
         });
 
+        console.log(ids[0]);
         resolve(mCrossfit.find({ "_id": { $in: ids } }).exec());
 
       });

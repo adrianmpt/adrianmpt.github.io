@@ -18,7 +18,7 @@ var API = (function() {
             route: '/tenants/:id',
             params: {
               //id: '5867154d6db68230ef1c5dec'
-              id: '58706cce12a4c108e9fc41d3'
+              id: '587080eb450e19109080b767'
             },
             options: config.endpoint
           })
@@ -33,7 +33,7 @@ var API = (function() {
             route: '/tenants/:id/flows',
             params: {
               //id: '5867154d6db68230ef1c5dec'
-              id: '58706cce12a4c108e9fc41d3'
+              id: '587080eb450e19109080b767'
             },
             options: config.endpoint
           })

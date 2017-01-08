@@ -5,17 +5,19 @@ let db,
     express = require('express'),
     app = express(),
     API = require('./api/api.js'),
-    CONNECT = require('./connect.js'),
+    CONNECT = require('./connect/connect.js'),
+    CONFIG = new require('./config/config.js')(),
     Flows = require('./api/Flows/Flows.js'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser');
 
 mongoose.Promise = global.Promise;
 
-//db = new CONNECT().open('mongodb://warmup:AHApKMFvSP6SM7x@ds145868.mlab.com:45868/warmuprx');
-db = new CONNECT().open('mongodb://localhost/WarmUpRx');
+db = new CONNECT({ mode: 'debug' }).open(CONFIG.db.uri);
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.use(cookieParser());
 
 /** Seed **/
 app.get('/seed', new API().use({

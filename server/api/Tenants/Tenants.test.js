@@ -4,13 +4,14 @@ let db,
   mongoose = require('mongoose'),
   assert = require('chai').assert,
   Tenants = require('./Tenants.js'),
-  CONNECT = require('./../../connect.js');
+  CONNECT = require('./../../connect/connect.js'),
+  CONFIG = new require('./../../config/config.js')({ env: 'test' });
 
 describe('Tenants', function() {
 
   before(function(done) {
     mongoose.Promise = global.Promise;
-    db = new CONNECT({ mode: 'test' }).open('mongodb://localhost/WarmUpRx');
+    db = new CONNECT({ mode: 'test' }).open(CONFIG.db.uri);
     return done();
   });
 
@@ -18,7 +19,6 @@ describe('Tenants', function() {
     mongoose.disconnect();
     return done();
   });
-
 
   describe('list', function() {
 
