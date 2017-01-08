@@ -1,0 +1,42 @@
+
+    <form class="flex-container" method="post" action="http://localhost:3000/flows" enctype="application/x-www-form-urlencoded">
+      <label>Flow</label>
+      <input type="text" name="name" />
+      <input type="text" name="label" />
+      <input type="text" name="order" />
+      <input type="text" name="duration" />
+      <input type="text" name="exercise" />
+      <button type="submit">Save</button>
+    </form>
+    <form  method="post" action="http://localhost:3000/tenants" enctype="application/x-www-form-urlencoded">
+      <label>Tenant</label>
+      <div>
+        <input type="text" name="name" />
+      </div>
+      <div>     
+      <input type="text" name="address" /> <br />
+            </div>
+      <div>
+
+      <input type="text" name="city" /> <br />
+      </div>
+      <div>
+      <input type="text" name="state" /> <br />
+      </div>
+      <div>
+      <input type="text" name="postalCode" /> <br />
+      </div>
+      <div>
+      <input type="text" name="phoneNumber" /> <br />
+      </div>
+      <div>
+      <input type="text" name="createdDate" /> <br />
+      </div>
+      <div>
+      <input type="text" name="updatedDate" /> <br />
+            </div>
+      <div>
+
+      <input type="text" name="active" value="1" /> <br />
+      <button type="submit">Save</button>
+    </form>
