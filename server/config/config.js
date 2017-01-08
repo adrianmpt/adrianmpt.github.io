@@ -46,20 +46,6 @@ const CONFIG = function(options) {
 
   }
 
-  let _config = {
-
-    test: {
-      dbURI: 'mongodb://localhost/WarmUpRxTest'
-    },
-    dev: {
-      dbURI: 'mongodb://localhost/WarmUpRx'
-    },
-    staging: {
-      dbURI: 'mongodb://warmup:AHApKMFvSP6SM7x@ds145868.mlab.com:45868/warmuprx'
-    }
-
-  };
-
   function readDbOptions() {
     let dbConfig = JSON.parse(fs.readFileSync(OPTIONS.dbConfig, 'utf8')),
         dbOptions = dbConfig[OPTIONS.env];
