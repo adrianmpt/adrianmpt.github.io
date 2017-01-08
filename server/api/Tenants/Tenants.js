@@ -27,8 +27,6 @@ const Tenants = {
         mTenantFlow = mongoose.model('TenantFlow', TenantFlow),
         mCrossfit = mongoose.model('Crossfit', Flow, 'crossfit');
 
-    console.log(options.body);
-
     return new mTenant(options.body).save()
       .then( (docs) => {
         console.log(docs);
@@ -54,7 +52,7 @@ const Tenants = {
   },
 
   flows: function(options) {
-    console.log('Tenants.flows', options);
+    console.log('Tenants.flows');
 
     let id = mongoose.Types.ObjectId(options.id),
         mTenantFlow = mongoose.model('TenantFlow', TenantFlow),
@@ -68,7 +66,6 @@ const Tenants = {
           return mongoose.Types.ObjectId(doc);
         });
 
-        console.log(ids[0]);
         resolve(mCrossfit.find({ "_id": { $in: ids } }).exec());
 
       });

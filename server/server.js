@@ -7,7 +7,6 @@ let db,
     API = require('./api/api.js'),
     CONNECT = require('./connect/connect.js'),
     CONFIG = new require('./config/config.js')(),
-    Flows = require('./api/Flows/Flows.js'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser');
 
@@ -97,5 +96,5 @@ app.get.apply(app, new API({
 );
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+  console.log('Running WarmUpRx on http://localhost:3000/app');
 });
