@@ -1,6 +1,10 @@
 'use strict';
 
-const API = function() {
+const API = function(options) {
+
+  let OPTIONS = Object.assign({
+    base: '/api'
+  }, options);
 
   let _api = {
 
@@ -13,7 +17,31 @@ const API = function() {
     use: function(config) {
       this.config = config;
 
-      return this.handler;
+      return [this.getRoute(), this.handler];
+    },
+
+    getRoute: function() {
+
+      let clean,
+          route,
+          baseParts = OPTIONS.base.split('/'),
+          routeParts = OPTIONS.route.split('/'),
+          parts = baseParts.concat(routeParts);
+
+      clean = parts.filter(function(part) {
+        if (part.length) {
+          return part;
+        }
+      });
+
+      route = clean.join('/');
+
+      if (OPTIONS.base.match(/^\//)) {
+        route = '/' + route;
+      }
+
+      return route;
+
     },
 
     handler: function(req, res, next) {

@@ -18,9 +18,10 @@ db = new CONNECT({ mode: 'debug' }).open(CONFIG.db.uri);
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(cookieParser());
+app.use('/app', express.static(process.env.APP_ROOT_PATH + '/app'));
 
 /** Seed **/
-app.get('/seed', new API().use({
+app.get.apply(app, new API({ route: '/seed' }).use({
     name: 'Seed',
     method: 'init'
   })
