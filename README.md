@@ -9,9 +9,7 @@ From the terminal execute the following commands:
 > npm start
 ```
 
-You will need to serve any files in the `app` folder 
-statically using a server with a reverse proxy to 
-the NodeJS server running on port 3000. 
+Go to http://localhost:3000/app to run application.
 
 The NodeJS server will start by running `npm start` from the project root.
 
