@@ -24,8 +24,8 @@ const API = function(options) {
 
       let clean,
           route,
-          baseParts = OPTIONS.base.split('/'),
-          routeParts = OPTIONS.route.split('/'),
+          baseParts = (OPTIONS.base) ? OPTIONS.base.split('/') : [],
+          routeParts = (OPTIONS.route) ? OPTIONS.route.split('/') : [],
           parts = baseParts.concat(routeParts);
 
       clean = parts.filter(function(part) {

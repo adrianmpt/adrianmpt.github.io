@@ -21,14 +21,18 @@ app.use(cookieParser());
 app.use('/app', express.static(process.env.APP_ROOT_PATH + '/app'));
 
 /** Seed **/
-app.get.apply(app, new API({ route: '/seed' }).use({
+app.get.apply(app, new API({
+    route: '/seed'
+  }).use({
     name: 'Seed',
     method: 'init'
   })
 );
 
 /** Flows **/
-app.get('/flows', new API().use({
+app.get.apply(app, new API({
+    route: '/flows'
+  }).use({
     name: 'Flows',
     method: 'list',
     options: {
@@ -38,14 +42,18 @@ app.get('/flows', new API().use({
   })
 );
 
-app.post('/flows', new API().use({
+app.post.apply(app, new API({
+    route: '/flows'
+  }).use({
     name: 'Flows',
     method: 'create'
   })
 );
 
 /** Tenants **/
-app.get('/tenants', new API().use({
+app.get.apply(app, new API({
+    route: '/tenants'
+  }).use({
     name: 'Tenants',
     method: 'list',
     options: {
@@ -55,13 +63,17 @@ app.get('/tenants', new API().use({
   })
 );
 
-app.post('/tenants', new API().use({
+app.post.apply(app, new API({
+    route: '/tenants'
+  }).use({
     name: 'Tenants',
     method: 'create'
   })
 );
 
-app.get('/tenants/:id', new API().use({
+app.get.apply(app, new API({
+    route: '/tenants/:id'
+  }).use({
     name: 'Tenants',
     method: 'get',
     options: {
@@ -71,7 +83,9 @@ app.get('/tenants/:id', new API().use({
 );
 
 /** Tenant Flows **/
-app.get('/tenants/:id/flows', new API().use({
+app.get.apply(app, new API({
+    route: '/tenants/:id/flows'
+  }).use({
     name: 'Tenants',
     method: 'flows',
     options: {
