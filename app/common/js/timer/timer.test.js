@@ -55,7 +55,6 @@ describe('TIMER', function() {
       assert.equal('01:00', timer.readTime());
 
       timer.tick().then(function(time) {
-        console.log('test: ', time);
         assert.equal('00:59', time.time);
         done();
       });
@@ -139,12 +138,10 @@ describe('TIMER', function() {
       timer.start();
 
       div.on('TIMER::PAUSED', function(e, data) {
-        console.log('paused timer: ', timer.readTime());
         assert.equal('00:02',  timer.readTime());
       });
 
       div.on('TIMER::COMPLETE', function(e, data) {
-        console.log('complete timer: ', timer.readTime());
         assert.equal('00:04',  timer.readTime());
         done();
       });

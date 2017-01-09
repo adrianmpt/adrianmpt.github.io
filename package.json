@@ -23,7 +23,8 @@
     "db-migrate-mongodb": "1.1.4",
     "express": "4.14.0",
     "fontawesome": "4.7.0",
-    "mongoose": "4.7.5"
+    "mongoose": "4.7.5",
+    "timesync": "^0.2.3"
   },
   "devDependencies": {
     "bower": "^1.8.0",

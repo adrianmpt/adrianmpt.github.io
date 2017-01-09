@@ -7,8 +7,6 @@ var TIMER = function(options) {
     duration: 10 // Time in seconds
   }, options);
 
-  console.log('timer duration', CONFIG.duration);
-
   var _timer = {
 
     tickTimer: false,
@@ -57,6 +55,7 @@ var TIMER = function(options) {
         _data.data = data;
       }
 
+      console.log(_event, _data);
       $(this.element).trigger(_event, _data);
 
     },
@@ -71,7 +70,6 @@ var TIMER = function(options) {
           c = UTILS.msToSec(this.currentTime),
           d = UTILS.msToSec(this.currentDuration);
 
-      console.log(CONFIG.direction);
       if (CONFIG.direction === 'asc') {
         time = UTILS.secondsToTime(d - (d - c));
       }else if (CONFIG.direction === 'desc') {
@@ -103,14 +101,12 @@ var TIMER = function(options) {
 
           time = { time: _timer.readTime() };
 
-          console.log('timer: ', time);
           $(_timer.element).trigger(_timer.namespace + '::Tick', time);
 
           p.resolve(time);
 
         }, UTILS.secToMs(CONFIG.tickInterval));
       }else{
-        console.log('resolving');
         p.resolve({ time: _timer.readTime() });
         _timer.finish();
       }
@@ -120,7 +116,6 @@ var TIMER = function(options) {
     },
 
     finish: function() {
-      console.log('finish');
       this.updateState('complete');
       this.reset();
     },
@@ -132,15 +127,13 @@ var TIMER = function(options) {
       }
 
       if (this.isState('running')) {
-        console.log('running');
         this.tick().then(function(){
-          console.log('tick run');
           _timer.run();
         });
       }else if (this.isState('paused')) {
-        console.log('paused');
+        // Do nothing
       }else if (this.isState('complete')) {
-        console.log('complete');
+        // Do nothing
       }
 
     },
