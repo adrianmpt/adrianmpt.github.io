@@ -29,6 +29,7 @@ describe('UTILS', function() {
     it('should convert seconds to readable time', function() {
       assert.equal('10:35', UTILS.secondsToTime(635));
       assert.equal('01:01', UTILS.secondsToTime(61));
+      assert.equal('00:59', UTILS.secondsToTime(59));
     });
 
   });

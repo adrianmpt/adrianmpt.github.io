@@ -38,8 +38,10 @@ var UTILS = {
     
     r += ':';
 
-    if (sec < 10) {
+    if (sec > 0 && sec < 10) {
       r += '0' + sec;
+    }else if (sec <= 0) {
+      r += '00';
     }else{
       r += sec;
     }
