@@ -1,7 +1,6 @@
 (function(options) {
 
   var current,
-      runTimerTimeout,
       startRunTimer,
       startDelayTimer,
       progressTimer,
@@ -19,7 +18,7 @@
     chainTimeoutInterval: 3,
     startDelayInterval: 3,
     runEndDelayInterval: 3,
-    runTimerInterval: 1,
+    tickInterval: 1,
     startDelayMessaging: [
       'Ready',
       'Set',
@@ -161,7 +160,6 @@
     for (i=0,ii=current.items.length;i<ii;i++) {
       total += UTILS.secToMs(CONFIG.startDelayInterval) +
         UTILS.secToMs(CONFIG.runEndDelayInterval) +
-        UTILS.secToMs(CONFIG.runTimerInterval) +
         current.items[i].duration;
     }
 
@@ -179,9 +177,11 @@
 
   function startDelay(seconds, count) {
     var _count = count || 0,
-        interval = UTILS.secToMs(seconds) / 3;
+        interval = UTILS.secToMs(seconds) / 3,
+        exerciseTimer = $('#exercise-timer'),
+        exerciseTimer2 = $('#exercise-timer-2');
 
-    $('#exercise-timer').text(CONFIG.startDelayMessaging.slice(0)[_count]);
+    exerciseTimer.text(CONFIG.startDelayMessaging.slice(0)[_count]);
 
     // Cleanup any old timer
     if (startDelayTimer) {
@@ -193,7 +193,21 @@
         startDelay(seconds, ++_count);
       }, interval);
     }else{
-      runTimer((new Date()).getTime());
+
+      exerciseTimer.bind('TIMER::Tick', function(e, data) {
+        exerciseTimer.text(data.time);
+      });
+
+      exerciseTimer.bind('TIMER::COMPLETE', function(e, data) {
+        runEndDelay(CONFIG.runEndDelayInterval);
+      });
+
+      new TIMER({
+        element: exerciseTimer,
+        tickInterval: CONFIG.tickInterval,
+        duration: UTILS.msToSec(current.items[lastExercise].duration)
+      }).start(true, true);
+
     }
   }
 
@@ -256,35 +270,6 @@
 
     lastExercise = currentExercise;
     currentExercise++;
-
-  }
-
-  /**
-   * Runs using the startTime in milliseconds
-   * @param startTime
-   */
-  function runTimer(startTime) {
-    var currentTime = Math.abs(startTime - (new Date()).getTime()),
-        recurseTimerFn = function() {
-          if (lastExercise < current.items.length) {
-            // Count down until the duration is up and recurse
-            // otherwise restart the entire run sequence
-            // to get the next exercise
-            if (currentTime <= current.items[lastExercise].duration) {
-              runTimer(startTime);
-            }else{
-              runEndDelay(CONFIG.runEndDelayInterval);
-            }
-          }
-        };
-
-    if (runTimerTimeout) {
-      clearTimeout(runTimerTimeout);
-    }
-
-    console.log('runTimer', currentTime);
-    updateTime(currentTime);
-    runTimerTimeout = setTimeout(recurseTimerFn, UTILS.msToSec(CONFIG.runTimerInterval));
 
   }
 
@@ -351,10 +336,6 @@
   }
 
   function resetApp() {
-    
-    if (runTimerTimeout) {
-      clearTimeout(runTimerTimeout);
-    }
 
     $('#exercise-steps').html('');
     $('#exercise-continue').remove();
@@ -405,7 +386,7 @@
   chainTimeoutInterval: 1,
   startDelayInterval: 0,
   runEndDelayInterval: 1,
-  runTimerInterval: 0,
+  tickInterval: 1,
   startDelayMessaging: [],
   runEndDelayMessage: '',
   endMessage: 'You Done Good!'

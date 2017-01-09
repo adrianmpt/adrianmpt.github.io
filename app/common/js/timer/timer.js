@@ -101,7 +101,7 @@ var TIMER = function(options) {
 
           time = { time: _timer.readTime() };
 
-          $(_timer.element).trigger(_timer.namespace + '::Tick', time);
+          $(_timer.element).trigger(_timer.namespace + _timer.eventDelimiter + 'Tick', time);
 
           p.resolve(time);
 
@@ -124,6 +124,7 @@ var TIMER = function(options) {
 
       if (start) {
         this.updateState('running');
+        $(_timer.element).trigger(_timer.namespace + _timer.eventDelimiter + 'Tick', this.readTime());
       }
 
       if (this.isState('running')) {
