@@ -298,7 +298,6 @@
 
   function checkProgress(time) {
     var progress = (time / totalDuration) * 100;
-    console.log('checkProgress', time, totalDuration, progress);
     $('#exercise-progress').val(progress);
   }
 

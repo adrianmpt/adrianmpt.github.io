@@ -2,6 +2,7 @@ var TIMER = function(options) {
 
   var CONFIG = $.extend({
     element: document,
+    timesync: true,
     direction: 'desc', // Direction of timer
     tickInterval: 1, // How often to invoke timer
     duration: 10 // Time in seconds
@@ -10,7 +11,9 @@ var TIMER = function(options) {
   var _timer = {
 
     tickTimer: false,
-    
+
+    timesync: false,
+
     state: 'NOT_STARTED',
 
     namespace: 'TIMER',
@@ -33,8 +36,22 @@ var TIMER = function(options) {
     currentDuration: 0,
     pausedTime: 0,
 
+    getDate: function() {
+
+      var r;
+
+      if (CONFIG.timesync) {
+        r = new Date(this.timesync.now());
+      }else{
+        r = new Date();
+      }
+
+      return r;
+
+    },
+
     getCurrentTime: function() {
-      return Math.abs(_timer.startTime - (new Date()).getTime());
+      return Math.abs(_timer.startTime - this.getDate().getTime());
     },
 
     updateState: function(state, data) {
@@ -117,6 +134,11 @@ var TIMER = function(options) {
 
     finish: function() {
       this.updateState('complete');
+
+      if (this.timesync) {
+        this.timesync.destroy();
+      }
+
       this.reset();
     },
 
@@ -124,7 +146,7 @@ var TIMER = function(options) {
 
       if (start) {
         this.updateState('running');
-        $(_timer.element).trigger(_timer.namespace + _timer.eventDelimiter + 'Tick', this.readTime());
+        $(_timer.element).trigger(_timer.namespace + _timer.eventDelimiter + 'Tick', { time: this.readTime() });
       }
 
       if (this.isState('running')) {
@@ -145,7 +167,7 @@ var TIMER = function(options) {
         clearTimeout(this.tickTimer);
       }
 
-      this.startTime = (new Date()).getTime();
+      this.startTime = this.getDate().getTime();
       this.currentDuration = UTILS.secToMs(CONFIG.duration);
       this.element = $(CONFIG.element);
       this.updateState('reset');
@@ -153,6 +175,9 @@ var TIMER = function(options) {
     },
 
     start: function(run, init) {
+      if (CONFIG.timesync) {
+        this.timesync = new TimeSync();
+      }
       this.reset();
       this.updateState('starting');
       if (run) {
@@ -179,7 +204,7 @@ var TIMER = function(options) {
 
     resume: function() {
       this.updateState('running');
-      this.startTime = (new Date()).getTime() - this.currentTime;
+      this.startTime = this.getDate().getTime() - this.currentTime;
       this.run();
     }
 

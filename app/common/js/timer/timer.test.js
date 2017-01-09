@@ -26,6 +26,7 @@ describe('TIMER', function() {
       timer.start();
 
       div.on('TIMER::Tick', function(e, data) {
+        console.log(timer.readTime(), data.time);
         assert.equal(data.time, timer.readTime());
       });
 
