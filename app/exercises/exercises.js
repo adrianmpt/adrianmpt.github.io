@@ -273,18 +273,6 @@
 
   }
 
-  function updateTime(currentTime) {
-
-    var c = UTILS.msToSec(currentTime),
-        d = UTILS.msToSec(current.items[lastExercise].duration),
-        time = UTILS.secondsToTime(d - c);
-
-    $('#exercise-timer').text(time);
-
-    return time;
-
-  }
-
   function startProgress() {
     var progressStartTime = (new Date()).getTime();
 
