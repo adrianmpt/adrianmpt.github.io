@@ -34,6 +34,26 @@ describe('UTILS', function() {
 
   });
 
+  describe('timeToSeconds', function() {
+
+    it('should convert readable time to seconds', function() {
+      assert.equal(635, UTILS.timeToSeconds('10:35'));
+      assert.equal(61, UTILS.timeToSeconds('01:01'));
+      assert.equal(59, UTILS.timeToSeconds('00:59'));
+    });
+
+  });
+
+  describe('timeToMs', function() {
+
+    it('should convert readable time to ms', function() {
+      assert.equal(635000, UTILS.timeToMs('10:35'));
+      assert.equal(61000, UTILS.timeToMs('01:01'));
+      assert.equal(59000, UTILS.timeToMs('00:59'));
+    });
+
+  });
+
   describe('uriRoute', function() {
 
     it('should interpolate variables into paths', function() {

@@ -51,6 +51,32 @@ var UTILS = {
   },
 
   /**
+   * Convert MM:SS to seconds
+   * @param time
+   */
+  timeToSeconds: function(time) {
+
+    var parts = time.split(':'),
+        mins = parseInt(parts[0], 10),
+        secs = parseInt(parts[1], 10);
+
+    return secs + (mins * 60);
+
+  },
+
+  /**
+   * Convert MM:SS to ms
+   * @param time
+   */
+  timeToMs: function(time) {
+
+    var secs = this.timeToSeconds(time);
+
+    return secs * 1000;
+
+  },
+
+  /**
    * Handles route interpolation of variables in URI's
    * @param config
    * @returns {string}

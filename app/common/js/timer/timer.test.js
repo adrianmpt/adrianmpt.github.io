@@ -16,7 +16,7 @@ describe('TIMER', function() {
 
     it('should update state and emit event', function(done) {
 
-      var div = $('<div>'),
+      var div = $('<div id="a" />'),
           timer = new TIMER({
             element: div,
             direction: 'desc',
@@ -27,13 +27,11 @@ describe('TIMER', function() {
 
       div.on('TIMER::Tick', function(e, data) {
         assert.equal(data.time, timer.readTime());
-        timer.finish();
       });
 
       div.on('TIMER::COMPLETE', function(e, data) {
         done();
       });
-
 
       timer.run(true);
 
@@ -45,7 +43,7 @@ describe('TIMER', function() {
 
     it('should decrement readTime after each update', function(done) {
 
-      var div = $('<div>'),
+      var div = $('<div id="b" />'),
           timer = new TIMER({
             element: div,
             direction: 'desc',
@@ -66,10 +64,12 @@ describe('TIMER', function() {
 
     it('should increment readTime after each update', function(done) {
 
-      var timer = new TIMER({
-        direction: 'asc',
-        duration: 4
-      });
+      var div = $('<div id="c" />'), // Used to attach listener
+          timer = new TIMER({
+            element: div,
+            direction: 'asc',
+            duration: 4
+          });
 
       timer.start();
 
@@ -84,7 +84,7 @@ describe('TIMER', function() {
 
     it('should count down to zero from duration', function(done) {
 
-      var div = $('<div></div>'), // Used to attach listener
+      var div = $('<div id="d" />'), // Used to attach listener
           timer = new TIMER({
             element: div,
             direction: 'desc',
@@ -95,19 +95,19 @@ describe('TIMER', function() {
 
       assert.equal('00:04', timer.readTime());
 
-      timer.run(true);
-
       div.on('TIMER::COMPLETE', function(e) {
         assert.equal('00:00', timer.readTime());
         done();
       });
+
+      timer.run(true);
 
     });
 
 
     it('should count up to duration', function(done) {
 
-      var div = $('<div>'),
+      var div = $('<div id="e" />'),
           timer = new TIMER({
             element: div,
             direction: 'asc',
@@ -129,7 +129,7 @@ describe('TIMER', function() {
 
     it('should be able to pause and resume', function(done) {
 
-      var div = $('<div>'),
+      var div = $('<div id="f" />'),
           timer = new TIMER({
             element: div,
             direction: 'asc',
@@ -139,13 +139,12 @@ describe('TIMER', function() {
       timer.start();
 
       div.on('TIMER::PAUSED', function(e, data) {
-        console.log('test timer: ', timer.readTime());
+        console.log('paused timer: ', timer.readTime());
         assert.equal('00:02',  timer.readTime());
-        done();
       });
 
       div.on('TIMER::COMPLETE', function(e, data) {
-        console.log('test timer: ', timer.readTime());
+        console.log('complete timer: ', timer.readTime());
         assert.equal('00:04',  timer.readTime());
         done();
       });
@@ -159,9 +158,9 @@ describe('TIMER', function() {
         // restart after 2 seconds
         setTimeout(function() {
           timer.resume();
+          done();
         }, 2000);
       }, 3000);
-
 
     });
 

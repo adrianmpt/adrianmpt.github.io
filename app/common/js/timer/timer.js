@@ -33,6 +33,7 @@ var TIMER = function(options) {
     startTime: 0,
     currentTime: 0,
     currentDuration: 0,
+    pausedTime: 0,
 
     getCurrentTime: function() {
       return Math.abs(_timer.startTime - (new Date()).getTime());
@@ -69,8 +70,6 @@ var TIMER = function(options) {
       var time,
           c = UTILS.msToSec(this.currentTime),
           d = UTILS.msToSec(this.currentDuration);
-
-      console.log(this.currentDuration);
 
       console.log(CONFIG.direction);
       if (CONFIG.direction === 'asc') {
@@ -111,8 +110,9 @@ var TIMER = function(options) {
 
         }, UTILS.secToMs(CONFIG.tickInterval));
       }else{
+        console.log('resolving');
         p.resolve({ time: _timer.readTime() });
-        this.finish();
+        _timer.finish();
       }
 
       return p;
@@ -120,6 +120,7 @@ var TIMER = function(options) {
     },
 
     finish: function() {
+      console.log('finish');
       this.updateState('complete');
       this.reset();
     },
@@ -131,11 +132,15 @@ var TIMER = function(options) {
       }
 
       if (this.isState('running')) {
+        console.log('running');
         this.tick().then(function(){
+          console.log('tick run');
           _timer.run();
         });
       }else if (this.isState('paused')) {
         console.log('paused');
+      }else if (this.isState('complete')) {
+        console.log('complete');
       }
 
     },
@@ -161,17 +166,27 @@ var TIMER = function(options) {
       }
     },
 
+    restart: function() {
+      this.start(true, true);
+    },
+
     stop: function() {
       this.updateState('stopped');
       this.finish();
     },
 
     pause: function() {
+      if (this.tickTimer) {
+        clearTimeout(this.tickTimer);
+      }
+      this.pausedTime = this.currentTime;
       this.updateState('paused');
     },
 
     resume: function() {
       this.updateState('running');
+      this.startTime = (new Date()).getTime() - this.currentTime;
+      this.run();
     }
 
   };
