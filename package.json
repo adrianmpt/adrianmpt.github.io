@@ -24,6 +24,8 @@
     "express": "4.14.0",
     "fontawesome": "4.7.0",
     "mongoose": "4.7.5",
+    "node-jsdom": "^3.1.5",
+    "socket.io": "^1.7.2",
     "timesync": "^0.2.3"
   },
   "devDependencies": {

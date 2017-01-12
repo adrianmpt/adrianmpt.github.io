@@ -4,9 +4,12 @@ let db,
     mongoose = require('mongoose'),
     express = require('express'),
     app = express(),
+    http = require('http').Server(app),
+    io = require('socket.io')(http),
     API = require('./api/api.js'),
     CONNECT = require('./connect/connect.js'),
     CONFIG = new require('./config/config.js')(),
+    Synchronizer = require('./synchronizer/synchronizer.js'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     timesyncServer = require('timesync/server');
@@ -19,7 +22,9 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(cookieParser());
 app.use('/app', express.static(process.env.APP_ROOT_PATH + '/app'));
-app.use('/timesync', timesyncServer.requestHandler);
+app.use('/app/shared', express.static(process.env.APP_ROOT_PATH + '/shared'));
+//app.use('/timesync', timesyncServer.requestHandler);
+
 
 /** Seed **/
 app.get.apply(app, new API({
@@ -97,6 +102,11 @@ app.get.apply(app, new API({
   })
 );
 
-app.listen(3000, function () {
+io.on('connection', function(socket){
+  let synchronizer = new Synchronizer(io);
+  synchronizer.start();
+});
+
+http.listen(3000, function () {
   console.log('Running WarmUpRx on http://localhost:3000/app');
 });

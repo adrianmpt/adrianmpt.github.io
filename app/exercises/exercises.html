@@ -62,17 +62,32 @@
   </footer>
 
 
+<script src="/socket.io/socket.io.js"></script>
 <script src="../vendor/jquery/dist/jquery.min.js"></script>
-<script src="../vendor/timesync/dist/timesync.min.js"></script>
+<!--script src="../vendor/timesync/dist/timesync.min.js"></script-->
+<script src="../shared/utils/utils.js"></script>
+<script src="../shared/timer/timer.js"></script>
 <script src="../common/js/timesync/timesync.js"></script>
-<script src="../common/js/utils/utils.js"></script>
 <script src="../common/js/routes/routes.js"></script>
-<script src="../common/js/timer/timer.js"></script>
 <script src="../common/js/api/api.js"></script>
 <script src="exercises.js"></script>
 <script>
+  var socket = io();
+  socket.on('connect', function(){});
+  socket.on('event', function(data){
+    console.log('perform sync', data);
+  });
+  socket.on('disconnect', function(){});
 
 </script>
+
+<!--script>
+  var socket = io('http://localhost');
+  socket.on('connect', function(){});
+  socket.on('event', function(data){});
+  socket.on('disconnect', function(){});
+</script-->
+
 
 </body>
 </html>

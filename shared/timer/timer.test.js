@@ -9,7 +9,7 @@ describe('TIMER', function() {
 
   before(function() {
     $ = require('jquery');
-    UTILS = require('./../utils/utils.js').UTILS;
+    UTILS = require('././utils.js').UTILS;
   });
 
   describe('updateState', function () {
