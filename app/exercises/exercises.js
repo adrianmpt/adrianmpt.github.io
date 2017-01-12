@@ -203,7 +203,7 @@
       });
 
       new TIMER({
-        delegage: exerciseTimer,
+        delegate: exerciseTimer,
         timesync: false,
         tickInterval: CONFIG.tickInterval,
         duration: UTILS.msToSec(current.items[lastExercise].duration)
