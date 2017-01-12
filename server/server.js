@@ -14,6 +14,8 @@ let db,
     cookieParser = require('cookie-parser'),
     timesyncServer = require('timesync/server');
 
+let synchronizer = new Synchronizer(io);
+
 mongoose.Promise = global.Promise;
 
 db = new CONNECT({ mode: 'debug' }).open(CONFIG.db.uri);
@@ -103,9 +105,15 @@ app.get.apply(app, new API({
 );
 
 io.on('connection', function(socket){
-  let synchronizer = new Synchronizer(io);
-  synchronizer.start();
+  console.log('connected');
+  socket.on('TIMER::Sync', function(id) {
+    console.log(id);
+  });
+  socket.on('TIMER::Start', function(id) {
+    synchronizer.start();
+  });
 });
+
 
 http.listen(3000, function () {
   console.log('Running WarmUpRx on http://localhost:3000/app');
