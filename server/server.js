@@ -1,4 +1,5 @@
 'use strict';
+console.log(process.env);
 
 let db,
     mongoose = require('mongoose'),
@@ -14,10 +15,7 @@ let db,
     cookieParser = require('cookie-parser'),
     timesyncServer = require('timesync/server');
 
-let synchronizer = new Synchronizer(io);
-
 mongoose.Promise = global.Promise;
-
 db = new CONNECT({ mode: 'debug' }).open(CONFIG.db.uri);
 
 app.use(bodyParser.json()); // support json encoded bodies
@@ -103,6 +101,11 @@ app.get.apply(app, new API({
     }
   })
 );
+
+let synchronizer = new Synchronizer({
+  io: io,
+  steps: []
+});
 
 io.on('connection', function(socket){
   console.log('connected');

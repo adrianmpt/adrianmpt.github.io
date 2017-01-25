@@ -44,8 +44,24 @@ const API = function(options) {
 
     },
 
+    invoke: function(c) {
+      // Need to access API statically since
+      // `this` object is in a different context
+      let method = _api[c.name][c.method],
+          params = Object.assign({}, c.params);
+
+      if (!c.options) {
+        c.options = {};
+      }
+
+      c.options = _api.interpolate(c.options, params);
+
+      return method(c.options);
+
+    },
+
     handler: function(req, res, next) {
-      // Need to access API statically since 
+      // Need to access API statically since
       // `this` object is in a different context
       let method = _api[_api.config.name][_api.config.method],
           args = Object.assign({}, req.params, req.query);
@@ -56,7 +72,7 @@ const API = function(options) {
 
       _api.config.options = _api.interpolate(_api.config.options, args);
       _api.config.options.body = req.body;
-    
+
       method(_api.config.options).then(function(docs) {
         // Document was returned
         if (docs) {

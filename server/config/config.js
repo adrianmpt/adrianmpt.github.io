@@ -5,7 +5,7 @@ const CONFIG = function(options) {
 
 
   let OPTIONS = Object.assign({
-    env: 'dev',
+    env: process.env.NODE_ENV,
     dbConfig: process.env.APP_ROOT_PATH + '/database.json'
   }, options);
 
