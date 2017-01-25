@@ -3,6 +3,7 @@
   var current,
       runTimeout,
       runTimerTimeout,
+      startTime = 0,
       totalDuration = 0,
       currentDuration = 0,
       currentExercise = 0,
@@ -38,7 +39,7 @@
     var ol = $('<ol id="exercise-list"></ol>');
 
     for (i=0,ii=items.length;i<ii;i++) {
-      ol.append('<li>(' + UTILS.secondsToTime(UTILS.msToSec(items[i].duration)) + ') ' + items[i].exercise + '</li>');
+      ol.append('<li><span class="exercise-list-item-time">' + UTILS.secondsToTime(UTILS.msToSec(items[i].duration)) + '</span><span class="exercise-list-item-name"> ' + items[i].exercise + '</span></li>');
     }
 
     $('#exercise-steps').append(ol);
@@ -69,7 +70,6 @@
     setName();
     setItems(section.items);
     currentExercise = 0;
-    $('#exercise-timer').text('Ready!');
 
     run();
   }
@@ -85,39 +85,47 @@
     $(lis[currentExercise]).addClass('selected');
     setStepCount();
 
+    if (currentExercise < current.items.length) {
+      $('#exercise-timer').css({ fontSize: '420%' }).text(current.items[currentExercise].exercise);
+    }
+
     if (runTimeout) {
       clearTimeout(runTimeout);
     }
 
+    lastExercise = currentExercise;
+
     runTimeout = setTimeout(function() {
-      lastExercise = currentExercise;
-      currentExercise++;
       if (currentExercise < current.items.length) {
-        run();
+        startTime = (new Date()).getTime();
+        runTimer(true);
       }else{
         end();
       }
-    }, current.items[currentExercise].duration);
-
-    if (currentExercise < current.items.length) {
-      startTime = (new Date()).getTime();
-      runTimer(true);
-    }
-
+    }, 1000);
   }
 
   function runTimer(init) {
     var currentTime = Math.abs(startTime - (new Date()).getTime());
 
-    if (runTimerTimeout) {    
+    if (runTimerTimeout) {
       clearTimeout(runTimerTimeout);
     }
 
+    console.log(currentExercise, currentTime, current.items[currentExercise].duration + 1000);
+
     runTimerTimeout = setTimeout(function() {
-      if (currentExercise < current.items.length && 
-          currentTime <= current.items[currentExercise].duration) {
-        updateTime(currentTime);
-        runTimer();
+      if (currentExercise < current.items.length) {
+        if (currentTime <= current.items[currentExercise].duration + 1000) {
+          $('#exercise-timer').css({ fontSize: '620%' });
+          updateTime(currentTime);
+          runTimer();
+        }else{
+          currentExercise++;
+          run();
+        }
+      }else{
+        end();
       }
     }, 1000);
   }
