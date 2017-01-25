@@ -32,6 +32,8 @@
   font-size: 123.1%;
   line-height: 1.6em;
   color: #aaa;
+  overflow: hidden;
+
 }
 
 .exercise-steps li.done {
@@ -40,6 +42,14 @@
 .exercise-steps li.selected {
   color: #000;
   font-weight: 600;
+}
+
+.exercise-list-item-name {
+  font-size: 110%;
+}
+.exercise-list-item-time {
+  font-size: 85%;
+  vertical-align: 0.1em;
 }
 
 .exercise-current {

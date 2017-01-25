@@ -1,5 +1,5 @@
 (function() {
-  
+
   var sections = SECTIONS.slice(0);
 
   function findSection(section) {
@@ -19,7 +19,7 @@
     // Create section item with header and content
     var sec = $('<section class="flex-item feature-block"></div>'),
         h2 = $('<h2 class="section-header"></h2>'),
-        a = $('<a href="' + ROUTES.exercises.path + '#' + section.name + '" class="font-xl">' + section.label + '</a>'),
+        a = $('<a href="' + ROUTES.exercises.path + '#' + section.name + '" class="font-xxl">' + section.label + '</a>'),
         btn = $('<a href="' + ROUTES.exercises.path + '#' + section.name + '" class="btn"> Begin Workout <span class="fa fa-arrow-circle-right" role="presentation"></span></a>');
 
     // Nest markup

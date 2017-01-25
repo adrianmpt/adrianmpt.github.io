@@ -7,62 +7,62 @@ var SECTIONS = [
     items: [
       {
         order: 1,
-        exercise: "Head tilt ear to shoulder",
+        exercise: "Head Tilt Ear to Shoulder",
         duration: 10000
       },
       {
         order: 2,
-        exercise: "look left and right",
+        exercise: "Look Left and Right",
         duration: 10000
       },
       {
         order: 3,
-        exercise: "chin to chest",
+        exercise: "Chin to Chest",
         duration: 10000
       },
       {
         order: 4,
-        exercise: "look up",
+        exercise: "Look Up",
         duration: 10000
       },
       {
         order: 5,
-        exercise: "standing sidebend full",
+        exercise: "Standing Side-bend Full",
         duration: 10000
       },
       {
         order: 6,
-        exercise: "elbows to tummy",
+        exercise: "Elbows to Tummy",
         duration: 10000
       },
       {
         order: 7,
-        exercise: "elbows to sky",
+        exercise: "Elbows to Sky",
         duration: 10000
       },
       {
         order: 8,
-        exercise: "standing twist",
+        exercise: "Standing Twist",
         duration: 10000
       },
       {
         order: 9,
-        exercise: "Supine knee to chest",
+        exercise: "Supine Knee to Chest",
         duration: 10000
       },
       {
         order: 10,
-        exercise: "supine rotation",
+        exercise: "Supine Rotation",
         duration: 10000
       },
       {
         order: 11,
-        exercise: "prone extension",
+        exercise: "Prone Extension",
         duration: 10000
       },
       {
         order: 12,
-        exercise: "prone scorpion",
+        exercise: "Prone Scorpion",
         duration: 10000
       }
     ]
@@ -75,52 +75,52 @@ var SECTIONS = [
     items: [
       {
         order: 1,
-        exercise: "Triceps OH stretch: reach same shoulder blade",
+        exercise: "Triceps OH Stretch: Reach same shoulder blade",
         duration: 10000
       },
       {
         order: 2,
-        exercise: "OH Abduction Stretch: reach opposite shoulder blade",
+        exercise: "OH Abduction Stretch: Reach opposite shoulder blade",
         duration: 10000
       },
       {
         order: 3,
-        exercise: "Cross arm",
+        exercise: "Cross Arm",
         duration: 10000
       },
       {
         order: 4,
-        exercise: "Wrist flexion",
+        exercise: "Wrist Flexion",
         duration: 10000
       },
       {
         order: 5,
-        exercise: "Wrist extension",
+        exercise: "Wrist Extension",
         duration: 10000
       },
       {
         order: 6,
-        exercise: "Seated shoulder extension",
+        exercise: "Seated Shoulder Extension",
         duration: 10000
       },
       {
         order: 7,
-        exercise: "Supine OH stretch",
+        exercise: "Supine OH Stretch",
         duration: 10000
       },
       {
         order: 8,
-        exercise: "Supine snow angel at 90 degrees",
+        exercise: "Supine Snow Angel at 90 Degrees",
         duration: 10000
       },
       {
         order: 9,
-        exercise: "Supine ER/pec stretch",
+        exercise: "Supine ER/Pec Stretch",
         duration: 10000
       },
       {
         order: 10,
-        exercise: "Sidelying sleeper stretch internal rotation",
+        exercise: "Side-lying Sleeper Stretch Internal Rotation",
         duration: 10000
       }
     ]
@@ -133,42 +133,42 @@ var SECTIONS = [
     items: [
       {
         order: 1,
-        exercise: "Standing quad stretch",
+        exercise: "Standing Quad Stretch",
         duration: 10000
       },
       {
         order: 2,
-        exercise: "1st Toe DF stretch",
+        exercise: "1st Toe DF Stretch",
         duration: 10000
       },
       {
         order: 3,
-        exercise: "Downward dog",
+        exercise: "Downward Dog",
         duration: 10000
       },
       {
         order: 4,
-        exercise: "Sitting on heels",
+        exercise: "Sitting on Heels",
         duration: 10000
       },
       {
         order: 5,
-        exercise: "Adductor sitting straddle stretch",
+        exercise: "Adductor Sitting Straddle Stretch",
         duration: 10000
       },
       {
         order: 6,
-        exercise: "Supine individual hip flexion",
+        exercise: "Supine Individual Hip Flexion",
         duration: 10000
       },
       {
         order: 7,
-        exercise: "Cross body hip stretch",
+        exercise: "Cross Body Hip Stretch",
         duration: 10000
       },
       {
         order: 8,
-        exercise: "Hip internal rotation",
+        exercise: "Hip Internal Rotation",
         duration: 10000
       },
       {
@@ -178,12 +178,12 @@ var SECTIONS = [
       },
       {
         order: 10,
-        exercise: "Kneeling hip flexion for extension",
+        exercise: "Kneeling Hip Flexion for Extension",
         duration: 10000
       },
       {
         order: 11,
-        exercise: "Full squat",
+        exercise: "Full Squat",
         duration: 10000
       }
     ]
