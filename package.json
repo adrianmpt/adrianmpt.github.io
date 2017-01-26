@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "mocha --reporter spec -w ./app/**/*.test.js ./server/**/*.test.js",
-    "start": "NODE_ENV=dev APP_ROOT_PATH=~/git/adrianmpt.github.io node ./server/server.js"
+    "start": "APP_ROOT_PATH=. node ./server/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -35,7 +35,6 @@
     "jsdom": "^9.9.1",
     "mocha": "^3.2.0",
     "mocha-jsdom": "^1.1.0",
-    "mocha-mongoose": "^1.2.0",
-    "sinon": "^1.17.7"
+    "mocha-mongoose": "^1.2.0"
   }
 }

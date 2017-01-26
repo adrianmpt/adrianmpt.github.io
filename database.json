@@ -16,11 +16,5 @@
     "password": "AHApKMFvSP6SM7x",
     "port": "45868",
     "host": "ds145868.mlab.com"
-  },
-  "docker":  {
-    "driver": "mongodb",
-    "database": "warmuprx",
-    "host": "mongo",
-    "port": "27017"
   }
 }

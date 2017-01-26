@@ -18,9 +18,8 @@
             url: UTILS.uriRoute({
               route: '/tenants/:id',
               params: {
-                //id: '5867154d6db68230ef1c5dec' // MLab
-                //id: '587080eb450e19109080b767' // Local
-                id: '588a2acb60630c001295b3d3' // Docker
+                //id: '5867154d6db68230ef1c5dec'
+                id: '587080eb450e19109080b767'
               },
               options: config.endpoint
             })
@@ -34,9 +33,8 @@
             url: UTILS.uriRoute({
               route: '/tenants/:id/flows',
               params: {
-                //id: '5867154d6db68230ef1c5dec' // MLab
-                //id: '587080eb450e19109080b767' // Local
-                id: '588a2acb60630c001295b3d3' // Docker
+                //id: '5867154d6db68230ef1c5dec'
+                id: '587080eb450e19109080b767'
               },
               options: config.endpoint
             })

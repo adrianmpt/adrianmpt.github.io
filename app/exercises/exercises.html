@@ -5,7 +5,7 @@
   <meta name=viewport content="width=device-width, initial-scale=1">
 
   <title>Warm Up Rx</title>
-  <link href="https://fonts.googleapis.com/css?family=Raleway:100,400,500,600" rel="stylesheet">
+  <!--link href="https://fonts.googleapis.com/css?family=Raleway:100,400,500,600" rel="stylesheet"-->
   <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap-flex.min.css">
   <link rel="stylesheet" href="../common/css/fonts.css">
@@ -24,9 +24,6 @@
   </header>
 
   <div class="container-fluid">
-    <div class="row">
-      <button id="sync-button" class="btn">Sync Start</button>
-    </div>
     <div class="row exercise-header hidden-xs-down">
       <div class="exercise-last col-xs font-nl" id="exercise-last"></div>
       <div class="col-xs">
@@ -75,23 +72,13 @@
 <script src="../common/js/api/api.js"></script>
 <script src="exercises.js"></script>
 <script>
-  var socket = io(),
-      timer = $('#exercise-timer-2');
-
-  socket.on('connect', function(){
-    socket.emit('TIMER::Sync', '587080eb450e19109080b767');
-  });
-  socket.on('TIMER::Tick', function(data){
-    timer.text(data.time);
-  });
-  socket.on('TIMER::COMPLETE', function(data){
-    timer.text('COMPLETE');
+  var socket = io();
+  socket.on('connect', function(){});
+  socket.on('event', function(data){
+    console.log('perform sync', data);
   });
   socket.on('disconnect', function(){});
 
-  $('#sync-button').bind('click', function(e, data) {
-    socket.emit('TIMER::Start', '587080eb450e19109080b767');
-  });
 </script>
 
 <!--script>

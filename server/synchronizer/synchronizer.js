@@ -15,27 +15,15 @@ jsdom();
 
   class SyncEmitter extends EventEmitter {}
 
-  let Synchronizer = function(config) {
+  let Synchronizer = function(io) {
 
     let _synchronizer = {
 
-      io: false,
       timer: false,
-      stepper: false,
+      io: false,
 
-      init: function(config) {
-
-        if (config.io) {
-          this.io = config.io;
-        }else{
-          throw new Error('Socket.IO connection required');
-        }
-        if (config.steps) {
-          this.stepper = new STEPPER().setSections(config.steps);
-        }else{
-          throw new Error('Steps required for synchronizer');
-        }
-
+      init: function(io) {
+        this.io = io;
       },
 
       start: function() {
@@ -49,20 +37,20 @@ jsdom();
 
         syncEmitter.on('TIMER::COMPLETE', function(data) {
           self.io.emit('TIMER::COMPLETE', data);
+
+          //runEndDelay(CONFIG.runEndDelayInterval);
         });
 
         this.timer = new TIMER({
           delegate: delegate,
           tickInterval: 1,
-          direction: 'desc',
-          duration: 30,
           context: 'node'
         }, syncEmitter, $, UTILS).start(true, true);
       }
 
     };
 
-    _synchronizer.init(config);
+    _synchronizer.init(io);
 
     return _synchronizer;
 
@@ -70,7 +58,7 @@ jsdom();
 
 
   if (typeof module !== 'undefined' && module.exports != null) {
-    exports = module.exports = Synchronizer;
+    module.exports = Synchronizer;
   }else{
     window.Synchronizer = Synchronizer;
   }

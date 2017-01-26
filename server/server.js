@@ -1,5 +1,4 @@
 'use strict';
-console.log(process.env);
 
 let db,
     mongoose = require('mongoose'),
@@ -12,14 +11,19 @@ let db,
     CONFIG = new require('./config/config.js')(),
     Synchronizer = require('./synchronizer/synchronizer.js'),
     bodyParser = require('body-parser'),
-    cookieParser = require('cookie-parser');
+    cookieParser = require('cookie-parser'),
+    timesyncServer = require('timesync/server');
 
 mongoose.Promise = global.Promise;
+
 db = new CONNECT({ mode: 'debug' }).open(CONFIG.db.uri);
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(cookieParser());
+app.use('/app', express.static(process.env.APP_ROOT_PATH + '/app'));
+app.use('/app/shared', express.static(process.env.APP_ROOT_PATH + '/shared'));
+//app.use('/timesync', timesyncServer.requestHandler);
 
 
 /** Seed **/
@@ -98,21 +102,10 @@ app.get.apply(app, new API({
   })
 );
 
-let synchronizer = new Synchronizer({
-  io: io,
-  steps: []
-});
-
 io.on('connection', function(socket){
-  console.log('connected');
-  socket.on('TIMER::Sync', function(id) {
-    console.log(id);
-  });
-  socket.on('TIMER::Start', function(id) {
-    synchronizer.start();
-  });
+  let synchronizer = new Synchronizer(io);
+  synchronizer.start();
 });
-
 
 http.listen(3000, function () {
   console.log('Running WarmUpRx on http://localhost:3000/app');
