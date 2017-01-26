@@ -5,7 +5,6 @@ services:
       context: .
       dockerfile: docker/web.dockerfile
     image: warmuprx:web
-    env_file: docker/config/env/dev.env
     ports:
       - "4000:4000"
     volumes:
@@ -25,7 +24,6 @@ services:
         node_env: docker
     image: warmuprx:api
     command: nodemon --debug /services/server/server.js 5858
-    env_file: docker/config/env/dev.env
     ports:
       - "3000:3000"
       - "5858:5858"
