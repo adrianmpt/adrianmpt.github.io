@@ -11,6 +11,7 @@ const API = function(options) {
     config: null,
 
     Seed: require('./Seed/Seed.js'),
+    Health: require('./Health/Health.js'),
     Flows: require('./Flows/Flows.js'),
     Tenants: require('./Tenants/Tenants.js'),
 

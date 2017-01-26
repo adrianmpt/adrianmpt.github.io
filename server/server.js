@@ -31,6 +31,15 @@ app.get.apply(app, new API({
   })
 );
 
+/** Health **/
+app.get.apply(app, new API({
+    route: '/health'
+  }).use({
+    name: 'Health',
+    method: 'check'
+  })
+);
+
 /** Flows **/
 app.get.apply(app, new API({
     route: '/flows'
