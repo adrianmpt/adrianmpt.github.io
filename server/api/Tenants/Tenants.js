@@ -58,22 +58,27 @@ const Tenants = {
         mTenantFlow = mongoose.model('TenantFlow', TenantFlow),
         mCrossfit = mongoose.model('Crossfit', Flow, 'crossfit');
 
+    console.log(options.id);
+
     return new Promise((resolve, reject) => {
 
       mTenantFlow.findOne({ "tenantId": id }).exec().then( (docs) => {
 
-        let ids = docs.flows.map( (doc) => {
-          return mongoose.Types.ObjectId(doc);
-        });
+        if (docs) {
+          let ids = docs.flows.map((doc) => {
+            return mongoose.Types.ObjectId(doc);
+          });
 
-        resolve(mCrossfit.find({ "_id": { $in: ids } }).exec());
+          resolve(mCrossfit.find({"_id": {$in: ids}}).exec());
+        }else{
+          throw new Error("Failed to get flows for tenantId: " + id);
+        }
 
       });
 
     });
 
   }
-
 
 };
 

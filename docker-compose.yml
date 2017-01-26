@@ -1,0 +1,43 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: docker/web.dockerfile
+    image: warmuprx:web
+    env_file: docker/config/env/dev.env
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./shared:/var/www/virtual/warmuprx/shared
+    links:
+      - api
+    depends_on:
+      - api
+      - mongo
+  api:
+    build:
+      context: .
+      dockerfile: docker/api.dockerfile
+      args:
+        app_root_path: /services
+        app_mode: debug
+        node_env: docker
+    image: warmuprx:api
+    command: nodemon --debug /services/server/server.js 5858
+    env_file: docker/config/env/dev.env
+    ports:
+      - "3000:3000"
+      - "5858:5858"
+    volumes:
+      - ./shared:/services/shared
+    links:
+      - mongo
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:3.0.7
+    ports:
+      - "28017:27017"
+    volumes:
+      - ./mount/mongo-v3.0.7:/data/db

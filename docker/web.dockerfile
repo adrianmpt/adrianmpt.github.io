@@ -14,6 +14,5 @@ ADD docker/config/nginx/nginx.conf /etc/nginx/nginx.conf
 ADD app /var/www/virtual/warmuprx/
 
 EXPOSE 4000
-EXPOSE 3000
 
 CMD ["nginx", "-g", "daemon off;"]

@@ -12,8 +12,7 @@ let db,
     CONFIG = new require('./config/config.js')(),
     Synchronizer = require('./synchronizer/synchronizer.js'),
     bodyParser = require('body-parser'),
-    cookieParser = require('cookie-parser'),
-    timesyncServer = require('timesync/server');
+    cookieParser = require('cookie-parser');
 
 mongoose.Promise = global.Promise;
 db = new CONNECT({ mode: 'debug' }).open(CONFIG.db.uri);
@@ -21,9 +20,6 @@ db = new CONNECT({ mode: 'debug' }).open(CONFIG.db.uri);
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(cookieParser());
-app.use('/app', express.static(process.env.APP_ROOT_PATH + '/app'));
-app.use('/app/shared', express.static(process.env.APP_ROOT_PATH + '/shared'));
-//app.use('/timesync', timesyncServer.requestHandler);
 
 
 /** Seed **/
