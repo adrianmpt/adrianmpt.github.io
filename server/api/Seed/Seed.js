@@ -8,7 +8,10 @@ const Seed = {
   init: function() {
 
     //getting an instance of dbmigrate
-    let dbmigrate = DBMigrate.getInstance(true, { env: 'dev' });
+    let dbmigrate = DBMigrate.getInstance(true, {
+      cwd: process.env.APP_ROOT_PATH,
+      env: process.env.NODE_ENV
+    });
     //execute any of the API methods
     return dbmigrate.reset()
       .then( () => dbmigrate.up() )
