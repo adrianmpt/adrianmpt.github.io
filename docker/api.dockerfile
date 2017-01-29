@@ -23,7 +23,6 @@ WORKDIR ${app_root_path}/server
 
 RUN mkdir -p /var/log/warmuprx
 RUN npm install
-RUN npm install -g nodemon
 
 EXPOSE 3000
 EXPOSE 5858

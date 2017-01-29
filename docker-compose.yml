@@ -33,7 +33,6 @@ services:
         app_mode: debug
         node_env: docker
     image: warmuprx:api
-    command: nodemon --debug /services/server/server.js 5858
     ports:
       - "3000:3000"
       - "5858:5858"
@@ -51,11 +50,11 @@ services:
       retries: 3
 
   mongo:
-    image: mongo:3.0.7
+    image: mongo:3.1.4
     ports:
       - "28017:27017"
     volumes:
-      - ./mount/mongo-v3.0.7:/data/db
+      - ./mount/mongo-v3.1.4:/data/db
     healthcheck:
       test: echo 'db.stats().ok' | mongo localhost/test --quiet
       interval: 1m30s

@@ -20,7 +20,8 @@
               params: {
                 //id: '5867154d6db68230ef1c5dec' // MLab
                 //id: '587080eb450e19109080b767' // Local
-                id: '588a2acb60630c001295b3d3' // Docker
+                //id: '588a2acb60630c001295b3d3' // Docker 3.0.7
+                id: '588d6e393fb3da0001871fb6' // Docker 3.1.4
               },
               options: config.endpoint
             })
@@ -36,7 +37,8 @@
               params: {
                 //id: '5867154d6db68230ef1c5dec' // MLab
                 //id: '587080eb450e19109080b767' // Local
-                id: '588a2acb60630c001295b3d3' // Docker
+                //id: '588a2acb60630c001295b3d3' // Docker 3.0.7
+                id: '588d6e393fb3da0001871fb6' // Docker 3.1.4
               },
               options: config.endpoint
             })
