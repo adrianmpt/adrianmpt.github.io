@@ -58,6 +58,6 @@ services:
       - ./mount/mongo-v3.0.7:/data/db
     healthcheck:
       test: echo 'db.stats().ok' | mongo localhost/test --quiet
-      interval: 10s
+      interval: 1m30s
       timeout: 10s
       retries: 3
