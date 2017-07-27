@@ -5,9 +5,9 @@ const EventEmitter = require('events');
 let path = process.env.APP_ROOT_PATH,
     jsdom = require('node-jsdom').jsdom,
     $ = require('jquery')(jsdom().defaultView),
-    TIMER = require(path + '/shared/timer/timer.js'),
-    UTILS = require(path + '/shared/utils/utils.js'),
-    STEPPER = require(path + '/shared/stepper/stepper.js');
+    TIMER = require(path + '/../../shared/timer/timer.js'),
+    UTILS = require(path + '/../../shared/utils/utils.js'),
+    STEPPER = require(path + '/../../shared/stepper/stepper.js');
 
 jsdom();
 
